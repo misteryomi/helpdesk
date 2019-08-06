@@ -7,17 +7,40 @@ use Illuminate\Http\Request;
 use App\Http\Requests\TicketRequest;
 use App\Http\Resources\TicketResource;
 use App\Ticket;
+use App\User;
 
 class TicketsController extends Controller
 {
     private $ticket;
+    private $user;
 
-    function __construct(Ticket $ticket) {
+    function __construct(Ticket $ticket, User $user) {
         $this->ticket = $ticket;
+        // $this->user = $user;
+        $this->user = User::first();
+    }
+
+    /**
+     * Returns all users's created tickets or tickets assigned to them (if request()->assigned_to_me is set)
+     */
+    public function index() {
+        $assignedToMe = request()->has('assigned_to_me')? true : false;
+        $tickets = $this->user->tickets()->paginate(15);
+
+
+        return view('tickets.list', compact('assignedToMe', 'tickets'));
+    }
+
+    public function create() {
+        return view('tickets.new');
+    }
+
+    public function show() {
+        return view('tickets.show');
     }
 
 
-    public function index($count = 'paginate') {
+    public function list($count = 'paginate') {
 
         switch (true) {
             case $count == 'all':
@@ -35,9 +58,6 @@ class TicketsController extends Controller
         return response(['status' => true, 'data' => $tickets]);
     }
 
-    public function create() {
-        //return view('tickets.new');
-    }
 
     public function store(TicketRequest $request) {
         $ticket = $this->ticket->create($request->all());
