@@ -14,3 +14,13 @@
 Route::get('/', function () {
     return view('welcome');
 });
+
+
+Route::prefix('api/v1')->group(function() {
+    Route::get('departments', 'DepartmentsController')->name('departments.list');
+   
+    // Route::prefix('tickets')->name('tickets')->group(function() {
+        Route::get('tickets/{count?}', 'TicketsController@index')->name('list');
+        Route::post('ticket/new', 'TicketsController@store');
+    // });
+});

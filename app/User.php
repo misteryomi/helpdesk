@@ -36,4 +36,26 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    /**
+     * Returns tickets owned by this user
+     */
+    public function tickets() {
+        return $this->hasMany(Ticket::class, 'user_id');
+    }
+
+    /**
+     * Returns tickets assigned to this user
+     */
+    public function assignedTo() {
+        return $this->hasMany(TicketAssignedUser::class, 'user_id');
+    }
+
+
+    /**
+     * Returns unit this user belongs to
+     */
+    public function unit() {
+        return $this->belongsTo(DepartmentUnit::class);
+    }
 }
