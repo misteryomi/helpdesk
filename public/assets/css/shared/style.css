@@ -97,7 +97,7 @@ body {
   line-height: 1.7;
   color: #212529;
   text-align: left;
-  background-color: #fff; }
+  background-color: rgb(247, 247, 247); }
 
 [tabindex="-1"]:focus {
   outline: 0 !important; }
@@ -10109,4 +10109,15 @@ table {
 /*# sourceMappingURL=style.css.map */
 .irs_pagination li{
   list-style-type: none!important;
+}
+.invalid-feedback {
+  display: block!important;
+}
+
+.btn-irs {
+  background-color: #083061;
+  color: #fff;
+}
+.text-irs {
+  color: #083061;
 }

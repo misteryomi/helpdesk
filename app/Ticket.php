@@ -13,6 +13,14 @@ class Ticket extends Model
     const PRIORITY_MEDIUM = 'MEDIUM';
     const PRIORITY_LOW = 'LOW';
 
+    /**
+     * Override {id} binding with {ticket_id}
+     * Doc here: https://laravel.com/docs/5.8/routing#route-model-binding
+     */
+    public function resolveRouteBinding($value)
+    {
+        return $this->where('ticket_id', $value)->first() ?? abort(404);
+    }
 
     /**
      * Returns owner of this ticket
@@ -50,9 +58,17 @@ class Ticket extends Model
     }
 
     /**
-     * Returns Users assigned to this ticket
+     * Returns the conversations on current ticket
+     */
+    public function conversations() {
+        return $this->hasMany(TicketConversation::class, 'ticket_id');
+    }
+
+    /**
+     * Returns User assigned to this ticket
      */
     public function assignedTo() {
-        return $this->hasMany(TicketAssignedUser::class, 'ticket_id');
+        return $this->hasOne(TicketAssignedUser::class, 'ticket_id');
+        // return $this->hasMany(TicketAssignedUser::class, 'ticket_id');
     }
 }

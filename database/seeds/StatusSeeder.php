@@ -13,8 +13,10 @@ class StatusSeeder extends Seeder
     public function run()
     {
         $statuses = [
-            ['name' => 'Pending'],
+            ['name' => 'Pending'], //Possibly remove this so tickets can start with 'open'
             ['name' => 'Open'],
+            ['name' => 'Answered'],
+            ['name' => 'Replied'], //When or reset to open???
             ['name' => 'Reassigned'],
             ['name' => 'Solved'],
         ];

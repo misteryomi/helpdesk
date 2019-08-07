@@ -25,7 +25,7 @@ class TicketsController extends Controller
      */
     public function index() {
         $assignedToMe = request()->has('assigned_to_me')? true : false;
-        $tickets = $this->user->tickets()->paginate(15);
+        $tickets = $this->user->tickets()->latest()->paginate(15);
 
 
         return view('tickets.list', compact('assignedToMe', 'tickets'));
@@ -35,10 +35,13 @@ class TicketsController extends Controller
         return view('tickets.new');
     }
 
-    public function show() {
-        return view('tickets.show');
-    }
+    public function show(Ticket $ticket) {
+        //Check if this ticket is assigned to current user
+        $assignedToMe = $ticket->assignedTo && ($ticket->assignedTo->user_id == $this->user->id);
+        $conversations = $ticket->conversations()->latest()->get();
 
+        return view('tickets.show', compact('ticket', 'assignedToMe', 'conversations'));
+    }
 
     public function list($count = 'paginate') {
 
@@ -60,7 +63,11 @@ class TicketsController extends Controller
 
 
     public function store(TicketRequest $request) {
-        $ticket = $this->ticket->create($request->all());
+
+        $requestData = $request->all();
+        $requestData['user_id'] = $this->user->id;
+
+        $ticket = $this->ticket->create($requestData);
 
         //Generate and set a Ticket ID for the current ticket
         $ticket->ticket_id =  $ticket->id.rand(1000, 999999);
@@ -73,6 +80,11 @@ class TicketsController extends Controller
             $ticket->is_assigned = true;
         }
 
-        return response(['status' => true, 'message' => "Ticket successfully created! Your ticket ID is #$ticket->ticket_id", 'data' =>  new TicketResource($ticket)], 200);
+        return response([
+                            'status' => true, 
+                            'message' => "Ticket successfully created! Your ticket ID is #$ticket->ticket_id", 
+                            'data' =>  new TicketResource($ticket),
+                            'redirectsTo' => route('tickets.show', ['ticket' => $ticket->ticket_id]), 
+                            ]);
     }
 }

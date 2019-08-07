@@ -3,9 +3,10 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>IRS Helpdesk</title>
     <!-- plugins:css -->
-    <link rel="stylesheet" href="{{ asset('assets/vendors/iconfonts/mdi/css/materialdesignicons.css')}}')}}">
+    <link rel="stylesheet" href="{{ asset('assets/vendors/iconfonts/mdi/css/materialdesignicons.css')}}">
     <link rel="stylesheet" href="{{ asset('assets/vendors/css/vendor.addons.css')}}">
     <!-- endinject -->
     <!-- vendor css for this page -->
@@ -16,7 +17,7 @@
     <!-- inject:css -->
     <link rel="stylesheet" href="{{ asset('assets/css/shared/style.css')}}">
     <!-- endinject -->
-    <link rel="shortcut icon" href="{{ asset('assets/images/favicon.ico')}}" />
+    <link rel="shortcut icon" href="{{ asset('assets/images/logo.png')}}" />
   </head>
   <body class="header-fixed docs-body">
     <div class="doc-content-wrapper container">
@@ -49,14 +50,15 @@
         </ul>
       </div>
 
-      <div class="doc-content-section" id="getting-started">
-          @yield('content');
+      <div class="doc-content-section" id="app">
+          @yield('content')
       </div>
     </div>
 
     <!--page body ends -->
     <!-- SCRIPT LOADING START FORM HERE /////////////-->
     <!-- plugins:js -->
+    <script src="{{ asset('js/app.js')}}"></script>
     <script src="{{ asset('assets/vendors/js/core.js')}}"></script>
     <script src="{{ asset('assets/vendors/js/vendor.addons.js')}}"></script>
     <script src="{{ asset('assets/vendors/pace/pace.min.js')}}"></script>
@@ -108,6 +110,7 @@
     <!-- Vendor Js For This Page Ends-->
     <!-- build:js -->
     <script src="{{ asset('assets/js/template.js')}}"></script>
+    @yield('scripts')
     <!-- endbuild -->
   </body>
 </html>

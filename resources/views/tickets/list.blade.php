@@ -3,7 +3,8 @@
 @section('content')
     <div class="doc-content-section-inner">
         <h1>{{ $assignedToMe ? 'Tickets Assigned To Me' : 'My Tickets'}}</h1>
-
+      <div class="grid">
+        <div class="grid-body">
         @if($tickets->count() < 1)
          <p>{{ $assignedToMe ? 'Tickets Assigned To Me' : `You have created no ticket yet. <a href="#"><strong>Create your first ticket</strong></a>`}}</p>
         @else 
@@ -27,8 +28,8 @@
                   @php $count = ($tickets ->currentpage()-1) * $tickets ->perpage() + $loop->index + 1; @endphp
                   <tr>
                     <td>{{ $count }}</td>
-                    <td>{{ $ticket->ticket_id }}</td>
-                    <td>{{ $ticket->title }}</td>
+                    <td><a href="{{ route('tickets.show', ['ticket' => $ticket->ticket_id]) }}">{{ $ticket->ticket_id }}</a></td>
+                    <td><a href="{{ route('tickets.show', ['ticket' => $ticket->ticket_id]) }}"><strong>{{ $ticket->title }}</strong></a></td>
                     <td>{{ $ticket->unit->name }}</td>
                     <td>{{ $ticket->created_at }}</td>
                     <td>
@@ -45,6 +46,7 @@
           {{ $tickets->links() }}
           </div>
         @endif
-      
+        </div>
+      </div>
     </div>
 @endsection
