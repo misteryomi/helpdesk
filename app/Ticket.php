@@ -79,6 +79,15 @@ class Ticket extends Model
         return $this->hasMany(TicketAssignedUser::class, 'ticket_id');
     }
 
+
+
+    public function generateTicketId() {
+        $currentTicketCount = Self::whereDate('created_at', Carbon::today())->count() + 1;
+
+        return Carbon::now()->format('dmY').$currentTicketCount.rand(1000, 9999);
+    }
+
+    
     /**
      * Get tickets that have the pending status and has been created 30 mins ago
      */

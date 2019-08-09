@@ -20,18 +20,18 @@ class TicketsController extends Controller
         $this->ticket = $ticket;
         $this->status = $status;
         // $this->user = $user;
-        $this->user = User::first();
+        $this->user = User::find(2);
     }
 
     public function index() {
         $tickets = $this->user->tickets()->take(5)->get();
         $assignedTickets = $this->user->assignedTickets()->take(5)->get();
 
-        //get stats of all ticket statuses
-        $stats = (new \App\Status)->getUserTicketsStatusCount($tickets, $this->user->id);
-        dd($stats);
 
-        return view('tickets.summary', compact('tickets', 'assignedTickets'));
+        //get stats of all ticket statuses
+        $stats = (new \App\Status)->getUserTicketsStatusStats($tickets, $this->user->id);
+
+        return view('tickets.summary', compact('tickets', 'assignedTickets', 'stats'));
     }
 
     /**
@@ -86,7 +86,7 @@ class TicketsController extends Controller
         $ticket = $this->ticket->create($requestData);
 
         //Generate and set a Ticket ID for the current ticket
-        $ticket->ticket_id =  $ticket->id.rand(1000, 999999);
+        $ticket->ticket_id =  $this->ticket->generateTicketId();
         $ticket->save();
 
         //Assign ticket to appropriate

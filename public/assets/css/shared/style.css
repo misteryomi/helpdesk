@@ -10121,3 +10121,6 @@ table {
 .text-irs {
   color: #083061;
 }
+.animate-this {
+  transition: all ease-in-out 0.1s
+}

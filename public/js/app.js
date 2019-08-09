@@ -1925,6 +1925,8 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: ['dept_api_route', 'submit_api_route'],
   data: function data() {
@@ -2115,6 +2117,9 @@ function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try
 
 function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
 
+//
+//
+//
 //
 //
 //
@@ -38674,8 +38679,28 @@ var render = function() {
                   attrs: { type: "submit", disabled: _vm.processing }
                 },
                 [
-                  _c("i", { staticClass: "fa fa-spin spin" }),
-                  _vm._v(" Create Ticket")
+                  _c(
+                    "div",
+                    {
+                      directives: [
+                        {
+                          name: "show",
+                          rawName: "v-show",
+                          value: _vm.processing,
+                          expression: "processing"
+                        }
+                      ],
+                      staticClass:
+                        "spinner-grow spinner-grow-md mr-1 animate-this",
+                      attrs: { role: "status" }
+                    },
+                    [
+                      _c("span", { staticClass: "sr-only" }, [
+                        _vm._v("Loading...")
+                      ])
+                    ]
+                  ),
+                  _vm._v(" \n                Create Ticket")
                 ]
               )
             ]
@@ -38957,8 +38982,28 @@ var render = function() {
                   attrs: { type: "submit", disabled: _vm.processing }
                 },
                 [
-                  _c("i", { staticClass: "fa fa-spin spin" }),
-                  _vm._v(" Send Message")
+                  _c(
+                    "div",
+                    {
+                      directives: [
+                        {
+                          name: "show",
+                          rawName: "v-show",
+                          value: _vm.processing,
+                          expression: "processing"
+                        }
+                      ],
+                      staticClass:
+                        "spinner-grow spinner-grow-md mr-1 animate-this",
+                      attrs: { role: "status" }
+                    },
+                    [
+                      _c("span", { staticClass: "sr-only" }, [
+                        _vm._v("Loading...")
+                      ])
+                    ]
+                  ),
+                  _vm._v(" \n            Send Message\n        ")
                 ]
               )
             ]

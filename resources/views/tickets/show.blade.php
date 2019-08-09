@@ -8,12 +8,17 @@
             <a class="btn btn-irs text-white" href="#">Reply Ticket</a>
         </div>
         @endif
+
+
+
         <div class="grid">
-            <div class="grid-header">
+            <div class="grid-header ">
                 {{ $ticket->title }}
             </div>
             <div class="grid-body">
                 <p>{{ $ticket->message }}</p>
+
+
             </div>     
         </div>
         <hr/>

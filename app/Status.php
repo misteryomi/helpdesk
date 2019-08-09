@@ -10,9 +10,24 @@ class Status extends Model
         return $this->hasMany(Ticket::class, 'status_id');
     }
 
+    /**
+     * Returns each status ticket_count for specified user
+     */
     public function getUserTicketsStatusCount($tickets, $user_id) {
         return Self::withCount(['tickets' => function($query) use ($user_id) {
                                     $query->where('user_id', $user_id);
                                 }])->get();
+    }
+    
+    public function getUserTicketsStatusStats($tickets, $user_id) {
+        $stats = [];
+
+        $statuses = $this->getUserTicketsStatusCount($tickets, $user_id);
+
+        foreach($statuses as $status) {
+            $stats[$status->name] = $status->tickets_count;
+        }
+
+        return $stats;
     }
 }

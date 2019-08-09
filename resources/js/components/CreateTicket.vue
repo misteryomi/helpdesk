@@ -51,7 +51,9 @@
                 <textarea rows="10" placeholder="Enter your message" name="message" class="form-control" v-model="message"></textarea>
                 <p class="invalid-feedback" v-show="errors.message">{{errors.message && errors.message[0]}}</p>
             </div>
-            <button type="submit" class="btn btn-sm btn-primary" :disabled="processing"><i class="fa fa-spin spin"></i> Create Ticket</button>
+            <button type="submit" class="btn btn-sm btn-primary" :disabled="processing">
+                <div class="spinner-grow spinner-grow-md mr-1 animate-this" v-show="processing" role="status"><span class="sr-only">Loading...</span></div> 
+                    Create Ticket</button>
           </form>
 
           <modal 

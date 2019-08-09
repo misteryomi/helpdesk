@@ -21,7 +21,10 @@
                     <p class="invalid-feedback" v-show="errors.status_id">{{errors.status && errors.status[0]}}</p>
                 </div>
             </div>
-            <button type="submit" class="btn btn-sm btn-primary" :disabled="processing"><i class="fa fa-spin spin"></i> Send Message</button>
+            <button type="submit" class="btn btn-sm btn-primary" :disabled="processing">
+                <div class="spinner-grow spinner-grow-md mr-1 animate-this" v-show="processing" role="status"><span class="sr-only">Loading...</span></div> 
+                Send Message
+            </button>
           </form>
 
           <modal 
