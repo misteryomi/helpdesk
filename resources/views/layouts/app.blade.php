@@ -18,6 +18,8 @@
     <link rel="stylesheet" href="{{ asset('assets/css/shared/style.css')}}">
     <!-- endinject -->
     <link rel="shortcut icon" href="{{ asset('assets/images/logo.png')}}" />
+    <script src="{{ asset('js/app.js')}}" defer></script>
+
   </head>
   <body class="header-fixed docs-body">
     <div class="doc-content-wrapper container">
@@ -31,9 +33,10 @@
         <ul class="nav">
           @php
             $routes = [
+                [ "route" => route('tickets.summary'), "name" => "Dashboard"],
                 [ "route" => route('tickets.new'), "name" => "Create new ticket"],
                 [ "route" => route('tickets.list'), "name" => "My tickets"],
-                [ "route" => route('tickets.list', ['assigned_to_me' => true]), "name" => "Tickets assigned to me"],
+                [ "route" => route('tickets.list', ['assigned_to_me' => 1]), "name" => "Tickets assigned to me"],
               ]
           @endphp
           @foreach($routes as $route)
@@ -58,10 +61,11 @@
     <!--page body ends -->
     <!-- SCRIPT LOADING START FORM HERE /////////////-->
     <!-- plugins:js -->
-    <script src="{{ asset('js/app.js')}}"></script>
     <script src="{{ asset('assets/vendors/js/core.js')}}"></script>
     <script src="{{ asset('assets/vendors/js/vendor.addons.js')}}"></script>
     <script src="{{ asset('assets/vendors/pace/pace.min.js')}}"></script>
+    <script src="{{ asset('assets/vendors/chartjs/Chart.min.js')}}"></script>
+    <script src="{{ asset('assets/js/charts/chartjs.addon.js')}}"></script>
     <!-- endinject -->
     <!-- Vendor Js For This Page Ends-->
     <script src="{{ asset('assets/js/highlight.pack.js')}}"></script>
@@ -110,6 +114,7 @@
     <!-- Vendor Js For This Page Ends-->
     <!-- build:js -->
     <script src="{{ asset('assets/js/template.js')}}"></script>
+    <script src="{{ asset('assets/js/dashboard.js')}}"></script>
     @yield('scripts')
     <!-- endbuild -->
   </body>

@@ -23,6 +23,13 @@ class TicketConversationsController extends Controller
 
     public function store(TicketConversationRequest $request, Ticket $ticket) {
 
+        if(!$ticket->is_assigned) {
+            return response([
+                'status' => false, 
+                'message' => "Sorry, you cannot respond to this ticket yet", 
+                ], 403);    
+        }
+
         $requestData = $request->all();
         //Check here tomorrow. If logged in user is sender, set him as sender, else receiver.
         $requestData['sender_id'] = $this->user->id;

@@ -45,8 +45,15 @@ class User extends Authenticatable
     }
 
     /**
-     * Returns tickets assigned to this user
+     * Get users's assigned Tickets
      */
+    public function assignedTickets() {
+        return $this->hasMany(Ticket::class, 'assigned_to');
+    }
+
+    // /**
+    //  * 
+    //  */
     public function assignedTo() {
         return $this->hasMany(TicketAssignedUser::class, 'user_id');
     }

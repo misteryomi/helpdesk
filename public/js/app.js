@@ -2142,8 +2142,18 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
-  props: ['submit_api_route', 'type', 'ticket_id'],
+  props: ['submit_api_route', 'type', 'ticket_id', 'statuses'],
   data: function data() {
     return {
       message: '',
@@ -2153,7 +2163,8 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       modalTitle: '',
       modalHref: '',
       processing: false,
-      errors: []
+      errors: [],
+      selectedStatus: ''
     };
   },
   methods: {
@@ -2209,6 +2220,9 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
       return onSubmitTicket;
     }()
+  },
+  mounted: function mounted() {
+    console.log(this.allStatuses);
   }
 });
 
@@ -38857,6 +38871,84 @@ var render = function() {
                   [_vm._v(_vm._s(_vm.errors.message && _vm.errors.message[0]))]
                 )
               ]),
+              _vm._v(" "),
+              _vm.type == "staff"
+                ? _c("div", { staticClass: "form-group row" }, [
+                    _c("div", { staticClass: "col-md-4" }, [
+                      _c("label", { attrs: { for: "department" } }, [
+                        _vm._v("Ticket Status:")
+                      ]),
+                      _vm._v(" "),
+                      _c(
+                        "select",
+                        {
+                          directives: [
+                            {
+                              name: "model",
+                              rawName: "v-model",
+                              value: _vm.selectedStatus,
+                              expression: "selectedStatus"
+                            }
+                          ],
+                          staticClass: "form-control",
+                          attrs: { name: "status" },
+                          on: {
+                            change: function($event) {
+                              var $$selectedVal = Array.prototype.filter
+                                .call($event.target.options, function(o) {
+                                  return o.selected
+                                })
+                                .map(function(o) {
+                                  var val = "_value" in o ? o._value : o.value
+                                  return val
+                                })
+                              _vm.selectedStatus = $event.target.multiple
+                                ? $$selectedVal
+                                : $$selectedVal[0]
+                            }
+                          }
+                        },
+                        [
+                          _c("option", { attrs: { value: "", selected: "" } }, [
+                            _vm._v("Select a status")
+                          ]),
+                          _vm._v(" "),
+                          _vm._l(JSON.parse(_vm.statuses), function(
+                            status,
+                            index
+                          ) {
+                            return _c(
+                              "option",
+                              { key: index, domProps: { value: status.id } },
+                              [_vm._v(_vm._s(status.name))]
+                            )
+                          })
+                        ],
+                        2
+                      ),
+                      _vm._v(" "),
+                      _c(
+                        "p",
+                        {
+                          directives: [
+                            {
+                              name: "show",
+                              rawName: "v-show",
+                              value: _vm.errors.status_id,
+                              expression: "errors.status_id"
+                            }
+                          ],
+                          staticClass: "invalid-feedback"
+                        },
+                        [
+                          _vm._v(
+                            _vm._s(_vm.errors.status && _vm.errors.status[0])
+                          )
+                        ]
+                      )
+                    ])
+                  ])
+                : _vm._e(),
               _vm._v(" "),
               _c(
                 "button",

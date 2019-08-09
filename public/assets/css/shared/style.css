@@ -10000,7 +10000,7 @@ table {
             color: #083061;
             background: rgba(105, 111, 251, 0.06); }
   .docs-body .doc-content-wrapper .doc-content-section {
-    padding: 100px 20px 100px 20px; }
+    padding: 10px 20px 100px 20px; }
     .docs-body .doc-content-wrapper .doc-content-section .doc-content-section-inner {
       max-width: 900px;
       margin-left: auto;
@@ -10097,7 +10097,7 @@ table {
           max-height: 300px;
           overflow-y: auto; }
       .docs-body .doc-content-wrapper .doc-content-section {
-        padding: 100px 5px 20px 5px; }
+        padding: 10px 5px 20px 5px; }
         .docs-body .doc-content-wrapper .doc-content-section .doc-content-section-inner {
           padding-left: 0;
           padding-right: 0; }

@@ -23,7 +23,8 @@ class CreateTicketsTable extends Migration
             $table->unsignedInteger('category_id');
             $table->text('message');
             $table->string('priority')->default('LOW');
-            $table->boolean('is_assigned')->default('false');
+            $table->boolean('is_assigned')->default(false);
+            $table->integer('assigned_to')->nullable();
             $table->unsignedInteger('status_id')->default(1);
             $table->timestamps();
 

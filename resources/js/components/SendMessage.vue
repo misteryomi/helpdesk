@@ -11,6 +11,16 @@
                 <textarea rows="10" placeholder="Enter your message" name="message" class="form-control" v-model="message"></textarea>
                 <p class="invalid-feedback" v-show="errors.message">{{errors.message && errors.message[0]}}</p>
             </div>
+            <div class="form-group row" v-if="type == 'staff'" >
+                <div class="col-md-4">
+                    <label for="department">Ticket Status:</label>
+                    <select class="form-control" name="status" v-model="selectedStatus">
+                        <option value="" selected>Select a status</option>
+                        <option v-for="(status, index) in JSON.parse(statuses)" :key="index" :value="status.id">{{ status.name }}</option>
+                    </select>       
+                    <p class="invalid-feedback" v-show="errors.status_id">{{errors.status && errors.status[0]}}</p>
+                </div>
+            </div>
             <button type="submit" class="btn btn-sm btn-primary" :disabled="processing"><i class="fa fa-spin spin"></i> Send Message</button>
           </form>
 
@@ -27,7 +37,7 @@
 
 <script>
     export default {
-        props: ['submit_api_route', 'type', 'ticket_id'],
+        props: ['submit_api_route', 'type', 'ticket_id', 'statuses'],
         data() {
             return {
                 message: '',
@@ -38,6 +48,7 @@
                 modalHref: '',
                 processing: false,
                 errors: [],
+                selectedStatus: '',
             }
         },
         methods: {
@@ -70,6 +81,9 @@
                 }
             },
 
+        },
+        mounted() {
+            console.log(this.allStatuses);
         }
     }
 </script>

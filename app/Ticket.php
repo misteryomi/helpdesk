@@ -3,6 +3,7 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use \Carbon\Carbon;
 
 class Ticket extends Model
 {
@@ -65,10 +66,35 @@ class Ticket extends Model
     }
 
     /**
-     * Returns User assigned to this ticket
+     * Returns current User assigned to this ticket
      */
     public function assignedTo() {
-        return $this->hasOne(TicketAssignedUser::class, 'ticket_id');
-        // return $this->hasMany(TicketAssignedUser::class, 'ticket_id');
+        return $this->belongsTo(User::class, 'assigned_to');
     }
+
+    /**
+     * Returns all users ever assigned to this ticket
+     */
+    public function allAssignedTo() {
+        return $this->hasMany(TicketAssignedUser::class, 'ticket_id');
+    }
+
+    /**
+     * Get tickets that have the pending status and has been created 30 mins ago
+     */
+    public function getUnassignedTickets() {
+        $tickets = Self::whereHas('status', function($query) {
+                           $query->where('status_id', 1);
+                        })
+                        ->where('is_assigned', 1)
+                        ->where('created_at', '<', Carbon::now()->subMinutes(30)->toDateTimeString())
+                        ->get();
+
+        return $tickets;
+    }
+
+    public function statusLabel() {
+        return "<label class='badge badge-{$this->status->css_class}'>{$this->status->name}</label>";
+    }
+
 }
