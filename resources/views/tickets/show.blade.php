@@ -17,8 +17,6 @@
             </div>
             <div class="grid-body">
                 <p>{{ $ticket->message }}</p>
-
-
             </div>     
         </div>
         <hr/>

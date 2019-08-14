@@ -10,6 +10,10 @@
 | contains the "web" middleware group. Now create something great!
 |
 */
+Route::get('/admin', 'Admin\DashboardController@index')->name('admin.dashboard');
+Route::get('/admin/tickets', 'Admin\TicketsController@list')->name('admin.tickets');
+Route::get('/admin/tickets/{ticket}', 'Admin\TicketsController@show')->name('admin.tickets.show');
+
 
 Route::get('/', 'TicketsController@index')->name('tickets.summary');
 Route::get('tickets', 'TicketsController@list')->name('tickets.list');

@@ -82,9 +82,9 @@ class Ticket extends Model
 
 
     public function generateTicketId() {
-        $currentTicketCount = Self::whereDate('created_at', Carbon::today())->count() + 1;
+        $currentTicketTodayCount = Self::whereDate('created_at', Carbon::today())->count() + 1;
 
-        return Carbon::now()->format('dmY').$currentTicketCount.rand(1000, 9999);
+        return Carbon::now()->format('dmY').sprintf("%04s", $currentTicketTodayCount); //If 0, generates 0000
     }
 
     

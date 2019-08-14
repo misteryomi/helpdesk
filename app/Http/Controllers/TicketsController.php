@@ -82,12 +82,9 @@ class TicketsController extends Controller
 
         $requestData = $request->all();
         $requestData['user_id'] = $this->user->id;
+        $requestData['ticket_id'] = $this->ticket->generateTicketId();
 
         $ticket = $this->ticket->create($requestData);
-
-        //Generate and set a Ticket ID for the current ticket
-        $ticket->ticket_id =  $this->ticket->generateTicketId();
-        $ticket->save();
 
         //Assign ticket to appropriate
         Self::assignTicketToStaff($ticket);

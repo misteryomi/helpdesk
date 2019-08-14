@@ -14,12 +14,19 @@ class Status extends Model
      * Returns each status ticket_count for specified user
      */
     public function getUserTicketsStatusCount($tickets, $user_id) {
-        return Self::withCount(['tickets' => function($query) use ($user_id) {
-                                    $query->where('user_id', $user_id);
-                                }])->get();
+
+        if(!is_null($user_id)) {
+            $stats = Self::withCount(['tickets' => function($query) use ($user_id) {
+                            $query->where('user_id', $user_id);
+                        }])->get();
+        } else {
+            $stats = Self::withCount('tickets')->get();
+        }
+
+        return $stats;
     }
     
-    public function getUserTicketsStatusStats($tickets, $user_id) {
+    public function getUserTicketsStatusStats($tickets, $user_id = NULL) {
         $stats = [];
 
         $statuses = $this->getUserTicketsStatusCount($tickets, $user_id);
