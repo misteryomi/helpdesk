@@ -21,12 +21,5 @@ Route::get('ticket/new', 'TicketsController@create')->name('tickets.new');
 Route::get('ticket/{ticket}', 'TicketsController@show')->name('tickets.show');
 
 
-Route::prefix('api/v1')->name('api.')->group(function() {
-    Route::get('departments', 'DepartmentsController')->name('departments.list');
-   
-    // Route::prefix('tickets')->name('tickets')->group(function() {
-        Route::get('tickets/{count?}', 'TicketsController@apiList')->name('list');
-        Route::post('ticket/new', 'TicketsController@store')->name('ticket.new');
-        Route::post('ticket/{ticket}/conversation/new', 'TicketConversationsController@store')->name('ticket.conversation.new');
-    // });
-});
+// Route::prefix('api/v1')->name('api.')->group(function() {
+// });
