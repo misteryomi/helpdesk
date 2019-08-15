@@ -9,14 +9,18 @@ use App\Http\Resources\TicketConversationResource;
 use App\TicketConversation;
 use App\User;
 use App\Ticket;
+use App\Status;
+
 
 class TicketConversationsController extends Controller
 {
     private $conversation;
     private $user;
+    private $status;
 
-    function __construct(TicketConversation $conversation, User $user) {
+    function __construct(TicketConversation $conversation, Status $status) {
         $this->conversation = $conversation;
+        $this->status = $status;
         // $this->user = $user;
         $this->user = User::first();
     }
@@ -42,6 +46,8 @@ class TicketConversationsController extends Controller
          * process some updates on the status of the ticket
          * 
          */
+        $status_id = $this->status->findStatus($this->user->id == $ticket->assignedTo->id ? 'Answered' : 'Open');
+        $ticket->update(['status_id' => $status_id]);
 
          return response([
             'status' => true, 

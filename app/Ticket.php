@@ -102,8 +102,8 @@ class Ticket extends Model
         return $tickets;
     }
 
-    public function statusLabel() {
-        return "<label class='badge badge-{$this->status->css_class}'>{$this->status->name}</label>";
+    public function statusBadge() {
+        return "<label class='badge badge-{$this->status->css_class}'> &bullet; {$this->status->name}</label>";
     }
 
 }

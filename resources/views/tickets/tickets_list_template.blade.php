@@ -24,7 +24,7 @@
                         <td><a href="{{ route('tickets.show', ['ticket' => $ticket->ticket_id]) }}"><strong>{{ $ticket->title }}</strong></a></td>
                         <td>{{ $ticket->unit->name }}</td>
                         <td>{{ $ticket->created_at->diffForHumans() }}</td>
-                        <td>{!! $ticket->statusLabel() !!}</td>
+                        <td>{!! $ticket->statusBadge() !!}</td>
                     </tr>
                 @endforeach
                 @endif

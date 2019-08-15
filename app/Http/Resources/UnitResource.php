@@ -20,6 +20,7 @@ class UnitResource extends JsonResource
             'id' => $this->id,
             'name' => $this->name,
             'department' => new DepartmentResource($this->department),
+            'staff' => $this->staff,
         ];
     }
 }

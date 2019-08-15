@@ -24,7 +24,7 @@
                         <td><a href="{{ route('admin.tickets.show', ['ticket' => $ticket->ticket_id]) }}"><strong>{{ $ticket->title }}</strong></a></td>
                         <td>{{ $ticket->unit->name }}</td>
                         <td>{{ $ticket->created_at->diffForHumans() }}</td>
-                        <td>{!! $ticket->statusLabel() !!}</td>
+                        <td>{!! $ticket->statusBadge() !!}</td>
                     </tr>
                 @endforeach
                 @endif
@@ -37,7 +37,7 @@
     {{ $tickets->links() }}
     </div>
     @else
-    <a class="border-top px-3 py-2 d-block text-gray" href="{{ $viewMoreRoute }}">
+    <a class="border-top px-3 py-2 d-block text-gray" href="{{ route('admin.tickets.list') }}">
         <small class="font-weight-medium"><i class="mdi mdi-chevron-down mr-2"></i>View All</small>
     </a>    
     @endif

@@ -1,10 +1,10 @@
 @extends('admin.layouts.app')
 
 @section('content')
-<div class="row">
+      <div class="row">
           <div class="col-12 py-5">
             <h4>Dashboard</h4>
-            <p class="text-gray">Welcome, 'Yomi</p>
+            <p class="text-gray">Welcome, Admin</p>
           </div>
       </div>
       <div class="row">
@@ -66,8 +66,7 @@
         <div class="grid-body py-3">
           <p class="card-title ml-n1">Recently created tickets</p>
         </div>
-          @php $viewMoreRoute = route('tickets.list'); @endphp
-          @include('tickets.tickets_list_template')
+          @include('admin.tickets.tickets_list_template')
       </div>
 
 @endsection

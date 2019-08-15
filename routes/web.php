@@ -11,8 +11,9 @@
 |
 */
 Route::get('/admin', 'Admin\DashboardController@index')->name('admin.dashboard');
-Route::get('/admin/tickets', 'Admin\TicketsController@list')->name('admin.tickets');
+Route::get('/admin/tickets', 'Admin\TicketsController@list')->name('admin.tickets.list');
 Route::get('/admin/tickets/{ticket}', 'Admin\TicketsController@show')->name('admin.tickets.show');
+Route::post('/admin/{ticket}/reassign', 'Admin\TicketsController@reassign')->name('admin.tickets.reassign');
 
 
 Route::get('/', 'TicketsController@index')->name('tickets.summary');
@@ -21,5 +22,13 @@ Route::get('ticket/new', 'TicketsController@create')->name('tickets.new');
 Route::get('ticket/{ticket}', 'TicketsController@show')->name('tickets.show');
 
 
-// Route::prefix('api/v1')->name('api.')->group(function() {
-// });
+Route::prefix('api/v1')->name('api.')->group(function() {
+    Route::get('departments', 'DepartmentsController')->name('departments.list');   
+
+    Route::prefix('tickets')->name('tickets.')->group(function() {
+        Route::get('tickets/{count?}', 'TicketsController@apiList')->name('list');
+        Route::post('ticket/new', 'TicketsController@store')->name('new');
+        Route::post('ticket/{ticket}/conversation/new', 'TicketConversationsController@store')->name('conversation.new');
+    });
+    
+});

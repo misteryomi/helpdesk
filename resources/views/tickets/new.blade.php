@@ -6,7 +6,7 @@
 
             <create-ticket 
                 dept_api_route="{{ route('api.departments.list') }}"
-                submit_api_route="{{ route('api.ticket.new') }}"
+                submit_api_route="{{ route('api.tickets.new') }}"
                 />
     </div>
 @endsection

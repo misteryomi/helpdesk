@@ -2100,6 +2100,205 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/ReassignTicket.vue?vue&type=script&lang=js&":
+/*!*************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/ReassignTicket.vue?vue&type=script&lang=js& ***!
+  \*************************************************************************************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/regenerator */ "./node_modules/@babel/runtime/regenerator/index.js");
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
+
+
+function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
+
+function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
+
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+/* harmony default export */ __webpack_exports__["default"] = ({
+  props: ['dept_api_route', 'submit_api_route'],
+  data: function data() {
+    return {
+      departments: [],
+      staffs: [],
+      units: [],
+      errors: [],
+      selectedDepartment: '',
+      selectedUnit: '',
+      selectedStaff: '',
+      title: '',
+      message: '',
+      displayModal: true,
+      modalMessage: '',
+      modalType: '',
+      modalTitle: '',
+      modalHref: '',
+      processing: false
+    };
+  },
+  watch: {
+    //Update list of units onchange of department value
+    selectedDepartment: function selectedDepartment(value) {
+      this.units = this.departments.filter(function (item) {
+        return item.id == value;
+      })[0].units;
+    },
+    //Update list of categories onchange of unit value
+    selectedUnit: function selectedUnit(value) {
+      this.categories = this.units.filter(function (item) {
+        return item.id == value;
+      })[0].categories;
+      this.staffs = this.units.filter(function (item) {
+        return item.id == value;
+      })[0].staff;
+    }
+  },
+  methods: {
+    fetchDepartments: function () {
+      var _fetchDepartments = _asyncToGenerator(
+      /*#__PURE__*/
+      _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee() {
+        var response, data;
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee$(_context) {
+          while (1) {
+            switch (_context.prev = _context.next) {
+              case 0:
+                _context.prev = 0;
+                _context.next = 3;
+                return axios.get(this.dept_api_route);
+
+              case 3:
+                response = _context.sent;
+                data = response.data.data;
+                this.departments = data;
+                _context.next = 11;
+                break;
+
+              case 8:
+                _context.prev = 8;
+                _context.t0 = _context["catch"](0);
+                console.log('error', _context.t0);
+
+              case 11:
+              case "end":
+                return _context.stop();
+            }
+          }
+        }, _callee, this, [[0, 8]]);
+      }));
+
+      function fetchDepartments() {
+        return _fetchDepartments.apply(this, arguments);
+      }
+
+      return fetchDepartments;
+    }(),
+    onSubmitTicket: function () {
+      var _onSubmitTicket = _asyncToGenerator(
+      /*#__PURE__*/
+      _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee2(e) {
+        var data, response;
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee2$(_context2) {
+          while (1) {
+            switch (_context2.prev = _context2.next) {
+              case 0:
+                e.preventDefault();
+                this.processing = true;
+                data = {
+                  staff_id: this.selectedStaff
+                };
+                _context2.prev = 3;
+                _context2.next = 6;
+                return axios.post(this.submit_api_route, data);
+
+              case 6:
+                response = _context2.sent;
+                response = response.data;
+                $('#irsModal').modal('show');
+                this.modalType = 'success', this.modalMessage = response.message;
+                this.modalTitle = 'Successful!';
+                this.modalHref = response.redirectsTo;
+                this.processing = false;
+                _context2.next = 18;
+                break;
+
+              case 15:
+                _context2.prev = 15;
+                _context2.t0 = _context2["catch"](3);
+
+                if (_context2.t0.response.status == 422) {
+                  this.errors = _context2.t0.response.data.errors;
+                  this.processing = false; //                   console.log(e.response.data.errors);    
+                }
+
+              case 18:
+              case "end":
+                return _context2.stop();
+            }
+          }
+        }, _callee2, this, [[3, 15]]);
+      }));
+
+      function onSubmitTicket(_x) {
+        return _onSubmitTicket.apply(this, arguments);
+      }
+
+      return onSubmitTicket;
+    }()
+  },
+  mounted: function mounted() {
+    this.fetchDepartments();
+  }
+});
+
+/***/ }),
+
 /***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/SendMessage.vue?vue&type=script&lang=js&":
 /*!**********************************************************************************************************************************************************************!*\
   !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/SendMessage.vue?vue&type=script&lang=js& ***!
@@ -2117,7 +2316,6 @@ function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try
 
 function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
 
-//
 //
 //
 //
@@ -2185,7 +2383,10 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                 e.preventDefault();
                 this.processing = true;
                 data = {
-                  message: this.message
+                  message: this.message // if(this.type == 'staff') {
+                  //     data.status_id = this.selectedStatus;
+                  // }
+
                 };
                 _context.prev = 3;
                 _context.next = 6;
@@ -2199,7 +2400,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                 this.modalTitle = 'Successful!';
                 this.modalHref = response.redirectsTo;
                 this.processing = false;
-                _context.next = 18;
+                _context.next = 19;
                 break;
 
               case 15:
@@ -2207,11 +2408,12 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                 _context.t0 = _context["catch"](3);
 
                 if (_context.t0.response.status == 422) {
-                  this.errors = _context.t0.response.data.errors;
-                  this.processing = false; //                   console.log(e.response.data.errors);    
+                  this.errors = _context.t0.response.data.errors; //    console.log(e.response.data.errors);    
                 }
 
-              case 18:
+                this.processing = false;
+
+              case 19:
               case "end":
                 return _context.stop();
             }
@@ -2227,7 +2429,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     }()
   },
   mounted: function mounted() {
-    console.log(this.allStatuses);
+    this.selectedStatus = JSON.parse(this.statuses)[0].id; //default first element as selected, since :selected refused to work.
   }
 });
 
@@ -38778,16 +38980,8 @@ var render = function() {
                 _c(
                   "a",
                   {
-                    directives: [
-                      {
-                        name: "show",
-                        rawName: "v-show",
-                        value: _vm.modal_href,
-                        expression: "modal_href"
-                      }
-                    ],
                     staticClass: "btn btn-irs btn-sm",
-                    attrs: { href: _vm.modal_href }
+                    attrs: { href: _vm.modal_href ? _vm.modal_href : "" }
                   },
                   [_vm._v("Continue")]
                 )
@@ -38797,6 +38991,299 @@ var render = function() {
         ])
       ])
     ]
+  )
+}
+var staticRenderFns = []
+render._withStripped = true
+
+
+
+/***/ }),
+
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/ReassignTicket.vue?vue&type=template&id=ae26128e&":
+/*!*****************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/ReassignTicket.vue?vue&type=template&id=ae26128e& ***!
+  \*****************************************************************************************************************************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c(
+    "div",
+    { staticClass: "item-wrapper" },
+    [
+      _vm.errors.length
+        ? _c("p", [
+            _c("b", [
+              _vm._v("Oops! There are some errors found with your form inputs")
+            ])
+          ])
+        : _vm._e(),
+      _vm._v(" "),
+      _c(
+        "form",
+        {
+          attrs: { method: "POST" },
+          on: {
+            submit: function($event) {
+              $event.preventDefault()
+              return _vm.onSubmitTicket($event)
+            }
+          }
+        },
+        [
+          _c("div", { staticClass: "form-group" }, [
+            _c("label", { attrs: { for: "department" } }, [
+              _vm._v("Department")
+            ]),
+            _vm._v(" "),
+            _c(
+              "select",
+              {
+                directives: [
+                  {
+                    name: "model",
+                    rawName: "v-model",
+                    value: _vm.selectedDepartment,
+                    expression: "selectedDepartment"
+                  }
+                ],
+                staticClass: "form-control",
+                attrs: {
+                  disabled: _vm.departments.length == 0,
+                  name: "department"
+                },
+                on: {
+                  change: function($event) {
+                    var $$selectedVal = Array.prototype.filter
+                      .call($event.target.options, function(o) {
+                        return o.selected
+                      })
+                      .map(function(o) {
+                        var val = "_value" in o ? o._value : o.value
+                        return val
+                      })
+                    _vm.selectedDepartment = $event.target.multiple
+                      ? $$selectedVal
+                      : $$selectedVal[0]
+                  }
+                }
+              },
+              [
+                _c("option", { attrs: { value: "" } }, [
+                  _vm._v("Select a Department")
+                ]),
+                _vm._v(" "),
+                _vm._l(_vm.departments, function(department, index) {
+                  return _c(
+                    "option",
+                    { key: index, domProps: { value: department.id } },
+                    [_vm._v(_vm._s(department.name))]
+                  )
+                })
+              ],
+              2
+            ),
+            _vm._v(" "),
+            _c(
+              "p",
+              {
+                directives: [
+                  {
+                    name: "show",
+                    rawName: "v-show",
+                    value: _vm.errors.department_id,
+                    expression: "errors.department_id"
+                  }
+                ],
+                staticClass: "invalid-feedback"
+              },
+              [
+                _vm._v(
+                  _vm._s(
+                    _vm.errors.department_id && _vm.errors.department_id[0]
+                  )
+                )
+              ]
+            )
+          ]),
+          _vm._v(" "),
+          _c("div", { staticClass: "form-group" }, [
+            _c("label", { attrs: { for: "unit" } }, [_vm._v("Unit")]),
+            _vm._v(" "),
+            _c(
+              "select",
+              {
+                directives: [
+                  {
+                    name: "model",
+                    rawName: "v-model",
+                    value: _vm.selectedUnit,
+                    expression: "selectedUnit"
+                  }
+                ],
+                staticClass: "form-control",
+                attrs: { disabled: _vm.units.length == 0, name: "unit" },
+                on: {
+                  change: function($event) {
+                    var $$selectedVal = Array.prototype.filter
+                      .call($event.target.options, function(o) {
+                        return o.selected
+                      })
+                      .map(function(o) {
+                        var val = "_value" in o ? o._value : o.value
+                        return val
+                      })
+                    _vm.selectedUnit = $event.target.multiple
+                      ? $$selectedVal
+                      : $$selectedVal[0]
+                  }
+                }
+              },
+              [
+                _c("option", { attrs: { value: "" } }, [
+                  _vm._v("Select a Unit")
+                ]),
+                _vm._v(" "),
+                _vm._l(_vm.units, function(unit, index) {
+                  return _c(
+                    "option",
+                    { key: index, domProps: { value: unit.id } },
+                    [_vm._v(_vm._s(unit.name))]
+                  )
+                })
+              ],
+              2
+            ),
+            _vm._v(" "),
+            _c(
+              "p",
+              {
+                directives: [
+                  {
+                    name: "show",
+                    rawName: "v-show",
+                    value: _vm.errors.unit_id,
+                    expression: "errors.unit_id"
+                  }
+                ],
+                staticClass: "invalid-feedback"
+              },
+              [_vm._v(_vm._s(_vm.errors.unit_id && _vm.errors.unit_id[0]))]
+            )
+          ]),
+          _vm._v(" "),
+          _c("div", { staticClass: "form-group" }, [
+            _c("label", { attrs: { for: "category" } }, [_vm._v("Staff")]),
+            _vm._v(" "),
+            _c(
+              "select",
+              {
+                directives: [
+                  {
+                    name: "model",
+                    rawName: "v-model",
+                    value: _vm.selectedStaff,
+                    expression: "selectedStaff"
+                  }
+                ],
+                staticClass: "form-control",
+                attrs: { disabled: _vm.units.length == 0, name: "category" },
+                on: {
+                  change: function($event) {
+                    var $$selectedVal = Array.prototype.filter
+                      .call($event.target.options, function(o) {
+                        return o.selected
+                      })
+                      .map(function(o) {
+                        var val = "_value" in o ? o._value : o.value
+                        return val
+                      })
+                    _vm.selectedStaff = $event.target.multiple
+                      ? $$selectedVal
+                      : $$selectedVal[0]
+                  }
+                }
+              },
+              [
+                _c("option", { attrs: { value: "" } }, [
+                  _vm._v("Select a staff")
+                ]),
+                _vm._v(" "),
+                _vm._l(_vm.staffs, function(staff, index) {
+                  return _c(
+                    "option",
+                    { key: index, domProps: { value: staff.id } },
+                    [_vm._v(_vm._s(staff.name))]
+                  )
+                })
+              ],
+              2
+            ),
+            _vm._v(" "),
+            _c(
+              "p",
+              {
+                directives: [
+                  {
+                    name: "show",
+                    rawName: "v-show",
+                    value: _vm.errors.user_id,
+                    expression: "errors.user_id"
+                  }
+                ],
+                staticClass: "invalid-feedback"
+              },
+              [_vm._v(_vm._s(_vm.errors.user_id && _vm.errors.user_id[0]))]
+            )
+          ]),
+          _vm._v(" "),
+          _c(
+            "button",
+            {
+              staticClass: "btn btn-sm btn-primary",
+              attrs: { type: "submit", disabled: _vm.processing }
+            },
+            [
+              _c(
+                "div",
+                {
+                  directives: [
+                    {
+                      name: "show",
+                      rawName: "v-show",
+                      value: _vm.processing,
+                      expression: "processing"
+                    }
+                  ],
+                  staticClass: "spinner-grow spinner-grow-md mr-1 animate-this",
+                  attrs: { role: "status" }
+                },
+                [_c("span", { staticClass: "sr-only" }, [_vm._v("Loading...")])]
+              ),
+              _vm._v(" \n            Reassign Ticket")
+            ]
+          )
+        ]
+      ),
+      _vm._v(" "),
+      _c("modal", {
+        attrs: {
+          modal_title: _vm.modalTitle,
+          modal_message: _vm.modalMessage,
+          modal_type: _vm.modalType,
+          modal_href: _vm.modalHref
+        }
+      })
+    ],
+    1
   )
 }
 var staticRenderFns = []
@@ -38897,84 +39384,6 @@ var render = function() {
                 )
               ]),
               _vm._v(" "),
-              _vm.type == "staff"
-                ? _c("div", { staticClass: "form-group row" }, [
-                    _c("div", { staticClass: "col-md-4" }, [
-                      _c("label", { attrs: { for: "department" } }, [
-                        _vm._v("Ticket Status:")
-                      ]),
-                      _vm._v(" "),
-                      _c(
-                        "select",
-                        {
-                          directives: [
-                            {
-                              name: "model",
-                              rawName: "v-model",
-                              value: _vm.selectedStatus,
-                              expression: "selectedStatus"
-                            }
-                          ],
-                          staticClass: "form-control",
-                          attrs: { name: "status" },
-                          on: {
-                            change: function($event) {
-                              var $$selectedVal = Array.prototype.filter
-                                .call($event.target.options, function(o) {
-                                  return o.selected
-                                })
-                                .map(function(o) {
-                                  var val = "_value" in o ? o._value : o.value
-                                  return val
-                                })
-                              _vm.selectedStatus = $event.target.multiple
-                                ? $$selectedVal
-                                : $$selectedVal[0]
-                            }
-                          }
-                        },
-                        [
-                          _c("option", { attrs: { value: "", selected: "" } }, [
-                            _vm._v("Select a status")
-                          ]),
-                          _vm._v(" "),
-                          _vm._l(JSON.parse(_vm.statuses), function(
-                            status,
-                            index
-                          ) {
-                            return _c(
-                              "option",
-                              { key: index, domProps: { value: status.id } },
-                              [_vm._v(_vm._s(status.name))]
-                            )
-                          })
-                        ],
-                        2
-                      ),
-                      _vm._v(" "),
-                      _c(
-                        "p",
-                        {
-                          directives: [
-                            {
-                              name: "show",
-                              rawName: "v-show",
-                              value: _vm.errors.status_id,
-                              expression: "errors.status_id"
-                            }
-                          ],
-                          staticClass: "invalid-feedback"
-                        },
-                        [
-                          _vm._v(
-                            _vm._s(_vm.errors.status && _vm.errors.status[0])
-                          )
-                        ]
-                      )
-                    ])
-                  ])
-                : _vm._e(),
-              _vm._v(" "),
               _c(
                 "button",
                 {
@@ -39003,7 +39412,7 @@ var render = function() {
                       ])
                     ]
                   ),
-                  _vm._v(" \n            Send Message\n        ")
+                  _vm._v(" \n            Reply Ticket\n        ")
                 ]
               )
             ]
@@ -51176,6 +51585,7 @@ module.exports = function(module) {
 var map = {
 	"./components/CreateTicket.vue": "./resources/js/components/CreateTicket.vue",
 	"./components/Modal.vue": "./resources/js/components/Modal.vue",
+	"./components/ReassignTicket.vue": "./resources/js/components/ReassignTicket.vue",
 	"./components/SendMessage.vue": "./resources/js/components/SendMessage.vue"
 };
 
@@ -51434,6 +51844,75 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Modal_vue_vue_type_template_id_53ab54d2___WEBPACK_IMPORTED_MODULE_0__["render"]; });
 
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Modal_vue_vue_type_template_id_53ab54d2___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
+
+
+
+/***/ }),
+
+/***/ "./resources/js/components/ReassignTicket.vue":
+/*!****************************************************!*\
+  !*** ./resources/js/components/ReassignTicket.vue ***!
+  \****************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _ReassignTicket_vue_vue_type_template_id_ae26128e___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./ReassignTicket.vue?vue&type=template&id=ae26128e& */ "./resources/js/components/ReassignTicket.vue?vue&type=template&id=ae26128e&");
+/* harmony import */ var _ReassignTicket_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./ReassignTicket.vue?vue&type=script&lang=js& */ "./resources/js/components/ReassignTicket.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+
+
+
+
+/* normalize component */
+
+var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
+  _ReassignTicket_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _ReassignTicket_vue_vue_type_template_id_ae26128e___WEBPACK_IMPORTED_MODULE_0__["render"],
+  _ReassignTicket_vue_vue_type_template_id_ae26128e___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
+  false,
+  null,
+  null,
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "resources/js/components/ReassignTicket.vue"
+/* harmony default export */ __webpack_exports__["default"] = (component.exports);
+
+/***/ }),
+
+/***/ "./resources/js/components/ReassignTicket.vue?vue&type=script&lang=js&":
+/*!*****************************************************************************!*\
+  !*** ./resources/js/components/ReassignTicket.vue?vue&type=script&lang=js& ***!
+  \*****************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_ReassignTicket_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/babel-loader/lib??ref--4-0!../../../node_modules/vue-loader/lib??vue-loader-options!./ReassignTicket.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/ReassignTicket.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_ReassignTicket_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+
+/***/ }),
+
+/***/ "./resources/js/components/ReassignTicket.vue?vue&type=template&id=ae26128e&":
+/*!***********************************************************************************!*\
+  !*** ./resources/js/components/ReassignTicket.vue?vue&type=template&id=ae26128e& ***!
+  \***********************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_ReassignTicket_vue_vue_type_template_id_ae26128e___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../node_modules/vue-loader/lib??vue-loader-options!./ReassignTicket.vue?vue&type=template&id=ae26128e& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/ReassignTicket.vue?vue&type=template&id=ae26128e&");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_ReassignTicket_vue_vue_type_template_id_ae26128e___WEBPACK_IMPORTED_MODULE_0__["render"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_ReassignTicket_vue_vue_type_template_id_ae26128e___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
 
 
 

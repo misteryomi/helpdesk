@@ -13,6 +13,14 @@ class TicketConversation extends Model
         return $this->belongsTo(Ticket::class);
     }
 
+    public function getUserAttribute() {
+        return $this->isSender() ? $this->sender : $this->receiver;
+    }
+
+    public function isSender() {
+        return ($this->ticket->user_id == $this->sender_id) ? true : false;
+    }
+
     public function sender() {
         return $this->belongsTo(User::class, 'sender_id', 'id');
     }

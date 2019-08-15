@@ -15,7 +15,11 @@ class CreateStatusesTable extends Migration
     {
         Schema::create('statuses', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->string('name');
+            $table->string('name', 50);
+            $table->string('css_class', 50);
+            $table->boolean('is_user_assignable')->default(false);
+            $table->boolean('is_staff_assignable')->default(false);
+            $table->boolean('is_admin_assignable')->default(false);
             $table->timestamps();
         });
     }

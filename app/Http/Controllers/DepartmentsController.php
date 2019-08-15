@@ -8,7 +8,7 @@ use App\Department;
 class DepartmentsController extends Controller
 {
     public function __invoke() {
-        $departments = Department::with('units', 'units.categories')->get();
+        $departments = Department::with('units', 'units.categories', 'units.staff')->get();
         
         return response(['status' => true, 'data' => $departments]);
     }

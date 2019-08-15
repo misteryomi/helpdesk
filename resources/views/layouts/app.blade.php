@@ -72,12 +72,8 @@
     <script>
       $(document).ready(function()
       {
-        $('body').scrollspy(
-        {
-          target: ".doc-aside .nav",
-          offset: 50
-        });
-        $(".doc-aside .nav .nav-link").on('click', function(event)
+
+        $(".btn.goto").on('click', function(event)
         {
           if (this.hash !== "")
           {
@@ -92,23 +88,6 @@
             });
           }
         });
-        $(".doc-aside .aside-header .nav-toggle-warpper").on("click", function()
-        {
-          toggleResponsiveNav();
-        });
-
-        function toggleResponsiveNav()
-        {
-          var screenWidth = $(window).outerWidth();
-          if (screenWidth < 991)
-          {
-            $(".doc-content-wrapper .doc-aside .nav").slideToggle();
-            $(".doc-content-wrapper .doc-aside .nav .nav-item").on("click", function()
-            {
-              $(".doc-content-wrapper .doc-aside .nav").slideUp();
-            });
-          }
-        }
       });
     </script>
     <!-- Vendor Js For This Page Ends-->

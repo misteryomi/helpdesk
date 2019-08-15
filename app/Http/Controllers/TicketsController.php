@@ -53,8 +53,8 @@ class TicketsController extends Controller
     public function show(Ticket $ticket) {
         //Check if this ticket is assigned to current user
         $assignedToMe = $ticket->assignedTo && ($ticket->assignedTo->id == $this->user->id);
-        $conversations = $ticket->conversations()->latest()->get();
-        $statuses = $assignedToMe ? $this->status->get() : [];
+        $conversations = $ticket->conversations()->latest()->paginate(10);
+        $statuses = $assignedToMe ? $this->status->where('is_staff_assignable', 1)->get() : [];
 
         return view('tickets.show', compact('ticket', 'assignedToMe', 'conversations', 'statuses'));
     }

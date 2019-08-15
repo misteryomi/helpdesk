@@ -11,19 +11,18 @@
                 <textarea rows="10" placeholder="Enter your message" name="message" class="form-control" v-model="message"></textarea>
                 <p class="invalid-feedback" v-show="errors.message">{{errors.message && errors.message[0]}}</p>
             </div>
-            <div class="form-group row" v-if="type == 'staff'" >
+            <!-- <div class="form-group row" v-if="type == 'staff'" >
                 <div class="col-md-4">
                     <label for="department">Ticket Status:</label>
                     <select class="form-control" name="status" v-model="selectedStatus">
-                        <option value="" selected>Select a status</option>
                         <option v-for="(status, index) in JSON.parse(statuses)" :key="index" :value="status.id">{{ status.name }}</option>
                     </select>       
                     <p class="invalid-feedback" v-show="errors.status_id">{{errors.status && errors.status[0]}}</p>
                 </div>
-            </div>
+            </div> -->
             <button type="submit" class="btn btn-sm btn-primary" :disabled="processing">
                 <div class="spinner-grow spinner-grow-md mr-1 animate-this" v-show="processing" role="status"><span class="sr-only">Loading...</span></div> 
-                Send Message
+                Reply Ticket
             </button>
           </form>
 
@@ -64,6 +63,10 @@
                     message: this.message,
                 }
 
+                // if(this.type == 'staff') {
+                //     data.status_id = this.selectedStatus;
+                // }
+
                 try {
                     let response = await axios.post(this.submit_api_route, data);
                     response = response.data;
@@ -78,15 +81,15 @@
                 } catch(e) {
                     if(e.response.status == 422) {
                         this.errors = e.response.data.errors
-                        this.processing = false;
-     //                   console.log(e.response.data.errors);    
+                    //    console.log(e.response.data.errors);    
                     }
+                    this.processing = false;
                 }
             },
 
         },
         mounted() {
-            console.log(this.allStatuses);
+            this.selectedStatus = JSON.parse(this.statuses)[0].id; //default first element as selected, since :selected refused to work.
         }
     }
 </script>

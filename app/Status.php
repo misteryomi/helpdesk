@@ -10,6 +10,12 @@ class Status extends Model
         return $this->hasMany(Ticket::class, 'status_id');
     }
 
+
+    public function findStatus($name) {
+        $status = Self::where('name', $name)->first();
+        
+        return $status->id;
+    }
     /**
      * Returns each status ticket_count for specified user
      */

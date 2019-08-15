@@ -16,6 +16,7 @@
     <link rel="stylesheet" href="{{ asset('assets/css/demo_1/style.css')}}">
     <!-- Layout style -->
     <link rel="shortcut icon" href="{{ asset('asssets/images/favicon.ico')}}" />
+    <script src="{{ asset('js/app.js')}}" defer></script>
   </head>
   <body class="header-fixed">
     <!-- partial:partials/_header.html -->
@@ -31,9 +32,9 @@
           <button class="t-header-toggler t-header-mobile-toggler d-block d-lg-none">
             <i class="mdi mdi-menu"></i>
           </button>
-          <form action="#" class="t-header-search-box">
+          <form action="{{ route('admin.tickets.list') }}" class="t-header-search-box">
             <div class="input-group">
-              <input type="text" class="form-control" id="inlineFormInputGroup" placeholder="Search" autocomplete="off">
+              <input type="text" name="ticket_id" class="form-control" id="inlineFormInputGroup" placeholder="Search tickets" autocomplete="off">
               <button class="btn btn-primary" type="submit"><i class="mdi mdi-arrow-right-thick"></i></button>
             </div>
           </form>
@@ -173,19 +174,27 @@
             <img class="profile-img img-lg rounded-circle" src="{{ asset('assets/images/profile/male/image_1.png')}}" alt="profile image">
           </div>
           <div class="info-wrapper">
-            <p class="user-name">Allen Clerk</p>
-            <h6 class="display-income">$3,400,00</h6>
+            <p class="user-name">Administrator</p>
+            <!-- <h6 class="display-income">$3,400,00</h6> -->
           </div>
         </div>
         <ul class="navigation-menu">
-          <li class="nav-category-divider">MAIN</li>
-          <li>
-            <a href="index.html">
-              <span class="link-title">Dashboard</span>
-              <i class="mdi mdi-gauge link-icon"></i>
+          @php
+            $routes = [
+                [ "route" => route('admin.dashboard'), "name" => "Dashboard", "icon" => 'mdi-gauge'],
+                [ "route" => route('admin.tickets.list'), "name" => "Manage tickets", "icon" => 'mdi-flask'],
+              ]
+          @endphp
+          @foreach($routes as $route)
+          <li {{ (request()->fullUrl() === $route['route']) ? 'class=active' : ''}}>
+            <a href="{{ $route['route'] }}">
+              <span class="link-title">{{ $route['name'] }}</span>
+              <i class="mdi {{ $route['icon'] }} link-icon"></i>
             </a>
           </li>
-          <li>
+
+          @endforeach
+          <!-- <li>
             <a href="#sample-pages" data-toggle="collapse" aria-expanded="false">
               <span class="link-title">Sample Pages</span>
               <i class="mdi mdi-flask link-icon"></i>
@@ -240,17 +249,13 @@
               <span class="link-title">Documentation</span>
               <i class="mdi mdi-asterisk link-icon"></i>
             </a>
-          </li>
+          </li> -->
         </ul>
-        <div class="sidebar-upgrade-banner">
-          <p class="text-gray">Upgrade to <b class="text-primary">PRO</b> for more exciting features</p>
-          <a class="btn upgrade-btn" target="_blank" href="http://www.uxcandy.co/product/label-pro-admin-template/">Upgrade to PRO</a>
-        </div>
       </div>
       <!-- partial -->
       <div class="page-content-wrapper">
         <div class="page-content-wrapper-inner">
-          <div class="content-viewport">
+          <div class="content-viewport" id="app">
 
                 @yield('content')
 
@@ -260,15 +265,8 @@
         <!-- partial:partials/_footer.html -->
         <footer class="footer">
           <div class="row">
-            <div class="col-sm-6 text-center text-sm-right order-sm-1">
-              <ul class="text-gray">
-                <li><a href="#">Terms of use</a></li>
-                <li><a href="#">Privacy Policy</a></li>
-              </ul>
-            </div>
-            <div class="col-sm-6 text-center text-sm-left mt-3 mt-sm-0">
-              <small class="text-muted d-block">Copyright © 2019 <a href="http://www.uxcandy.co" target="_blank">UXCANDY</a>. All rights reserved</small>
-              <small class="text-gray mt-2">Handcrafted With <i class="mdi mdi-heart text-danger"></i></small>
+            <div class="col-sm-12 text-center text-sm-right mt-3 mt-sm-0">
+              <small class="text-muted d-block">Copyright © 2019 Primera Africa. All rights reserved</small>
             </div>
           </div>
         </footer>

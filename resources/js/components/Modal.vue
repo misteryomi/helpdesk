@@ -7,7 +7,7 @@
                                 <i class="mdi mdi-flag mdi-6x text-irs"></i>
                                 <h4 class="text-black font-weight-medium mb-4">{{ modal_title }}</h4>
                                 <p>{{ modal_message }}</p>
-                                <a v-show="modal_href" :href="modal_href" class="btn btn-irs btn-sm">Continue</a>
+                                <a :href="modal_href ? modal_href : ''" class="btn btn-irs btn-sm">Continue</a>
                             </div>
                         </div>
                 </div>
