@@ -46,7 +46,10 @@ class TicketConversationsController extends Controller
          * process some updates on the status of the ticket
          * 
          */
-        $status_id = $this->status->findStatus($this->user->id == $ticket->assignedTo->id ? 'Answered' : 'Open');
+        //If the assigned staff has once responded to this ticket and user responds, it is an open ticket, not pending.
+        $userStatus = $ticket->conversations()->where('sender_id', $ticket->assignedTo->id)->count() > 0 ? 'Open' : 'Pending';
+        $status = $this->user->id == $ticket->assignedTo->id ? 'Answered' : $userStatus;
+        $status_id = $this->status->findStatus($status);
         $ticket->update(['status_id' => $status_id]);
 
          return response([

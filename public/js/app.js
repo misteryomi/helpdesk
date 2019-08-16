@@ -2397,14 +2397,14 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                 response = response.data;
                 $('#irsModal').modal('show');
                 this.modalType = 'success', this.modalMessage = response.message;
-                this.modalTitle = 'Successful!';
-                this.modalHref = response.redirectsTo;
+                this.modalTitle = 'Successful!'; // this.modalHref = response.redirectsTo; 
+
                 this.processing = false;
-                _context.next = 19;
+                _context.next = 18;
                 break;
 
-              case 15:
-                _context.prev = 15;
+              case 14:
+                _context.prev = 14;
                 _context.t0 = _context["catch"](3);
 
                 if (_context.t0.response.status == 422) {
@@ -2413,12 +2413,12 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
                 this.processing = false;
 
-              case 19:
+              case 18:
               case "end":
                 return _context.stop();
             }
           }
-        }, _callee, this, [[3, 15]]);
+        }, _callee, this, [[3, 14]]);
       }));
 
       function onSubmitTicket(_x) {
@@ -39249,7 +39249,10 @@ var render = function() {
             "button",
             {
               staticClass: "btn btn-sm btn-primary",
-              attrs: { type: "submit", disabled: _vm.processing }
+              attrs: {
+                type: "submit",
+                disabled: _vm.processing || _vm.selectedStaff == ""
+              }
             },
             [
               _c(

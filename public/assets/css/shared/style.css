@@ -60,7 +60,7 @@
   --gray-dark: #343a40;
   --primary: #083061;
   --secondary: #dfe8fb;
-  --success: #083061;
+  --success: #00e093;
   --info: #857bff;
   --warning: #FF6F59;
   --danger: #DB504A;
@@ -1774,7 +1774,7 @@ fieldset:disabled a.btn {
     box-shadow: 0 0 0 0.2rem rgba(128, 133, 252, 0.5); }
   .btn-primary.disabled, .btn-primary:disabled {
     color: #fff;
-    background-color: #083061;
+    background-color: #00e093;
     border-color: #083061; }
   .btn-primary:not(:disabled):not(.disabled):active, .btn-primary:not(:disabled):not(.disabled).active,
   .show > .btn-primary.dropdown-toggle {
@@ -1810,7 +1810,7 @@ fieldset:disabled a.btn {
 
 .btn-success {
   color: #212529;
-  background-color: #083061;
+  background-color: #00e093;
   border-color: #083061; }
   .btn-success:hover {
     color: #fff;
@@ -1820,7 +1820,7 @@ fieldset:disabled a.btn {
     box-shadow: 0 0 0 0.2rem rgba(70, 181, 152, 0.5); }
   .btn-success.disabled, .btn-success:disabled {
     color: #212529;
-    background-color: #083061;
+    background-color: #00e093;
     border-color: #083061; }
   .btn-success:not(:disabled):not(.disabled):active, .btn-success:not(:disabled):not(.disabled).active,
   .show > .btn-success.dropdown-toggle {
@@ -1974,7 +1974,7 @@ fieldset:disabled a.btn {
   border-color: #083061; }
   .btn-outline-primary:hover {
     color: #fff;
-    background-color: #083061;
+    background-color: #00e093;
     border-color: #083061; }
   .btn-outline-primary:focus, .btn-outline-primary.focus {
     box-shadow: 0 0 0 0.2rem rgba(105, 111, 251, 0.5); }
@@ -1984,7 +1984,7 @@ fieldset:disabled a.btn {
   .btn-outline-primary:not(:disabled):not(.disabled):active, .btn-outline-primary:not(:disabled):not(.disabled).active,
   .show > .btn-outline-primary.dropdown-toggle {
     color: #fff;
-    background-color: #083061;
+    background-color: #00e093;
     border-color: #083061; }
     .btn-outline-primary:not(:disabled):not(.disabled):active:focus, .btn-outline-primary:not(:disabled):not(.disabled).active:focus,
     .show > .btn-outline-primary.dropdown-toggle:focus {
@@ -2016,7 +2016,7 @@ fieldset:disabled a.btn {
   border-color: #083061; }
   .btn-outline-success:hover {
     color: #212529;
-    background-color: #083061;
+    background-color: #00e093;
     border-color: #083061; }
   .btn-outline-success:focus, .btn-outline-success.focus {
     box-shadow: 0 0 0 0.2rem rgba(76, 206, 172, 0.5); }
@@ -2026,7 +2026,7 @@ fieldset:disabled a.btn {
   .btn-outline-success:not(:disabled):not(.disabled):active, .btn-outline-success:not(:disabled):not(.disabled).active,
   .show > .btn-outline-success.dropdown-toggle {
     color: #212529;
-    background-color: #083061;
+    background-color: #00e093;
     border-color: #083061; }
     .btn-outline-success:not(:disabled):not(.disabled):active:focus, .btn-outline-success:not(:disabled):not(.disabled).active:focus,
     .show > .btn-outline-success.dropdown-toggle:focus {
@@ -2669,7 +2669,7 @@ input[type="button"].btn-block {
   .custom-control-input:checked ~ .custom-control-label::before {
     color: #fff;
     border-color: #083061;
-    background-color: #083061; }
+    background-color: #00e093; }
   .custom-control-input:focus ~ .custom-control-label::before {
     box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25); }
   .custom-control-input:focus:not(:checked) ~ .custom-control-label::before {
@@ -3604,7 +3604,7 @@ input[type="button"].btn-block {
 
 .badge-primary {
   color: #fff;
-  background-color: #083061; }
+  background-color: #00e093; }
   a.badge-primary:hover, a.badge-primary:focus {
     color: #fff;
     background-color: #373ffa; }
@@ -3624,7 +3624,7 @@ input[type="button"].btn-block {
 
 .badge-success {
   color: #212529;
-  background-color: #083061; }
+  background-color: #00e093; }
   a.badge-success:hover, a.badge-success:focus {
     color: #212529;
     background-color: #32b593; }
@@ -8650,7 +8650,7 @@ textarea {
   border-color: white; }
 
 .radio label input:checked:disabled + .input-frame:after {
-  background-color: #083061; }
+  background-color: #00e093; }
 
 .radio label .input-frame:before {
   border-radius: 50%; }

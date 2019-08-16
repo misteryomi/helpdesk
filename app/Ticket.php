@@ -7,6 +7,8 @@ use \Carbon\Carbon;
 
 class Ticket extends Model
 {
+    use ModelTrait;
+    
     protected $guarded = [];
 
     //Ticket Priorities

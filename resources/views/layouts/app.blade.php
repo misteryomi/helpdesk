@@ -18,7 +18,6 @@
     <link rel="stylesheet" href="{{ asset('assets/css/shared/style.css')}}">
     <!-- endinject -->
     <link rel="shortcut icon" href="{{ asset('assets/images/logo.png')}}" />
-    <script src="{{ asset('js/app.js')}}" defer></script>
 
   </head>
   <body class="header-fixed docs-body">
@@ -61,7 +60,8 @@
     <!--page body ends -->
     <!-- SCRIPT LOADING START FORM HERE /////////////-->
     <!-- plugins:js -->
-    <script src="{{ asset('assets/vendors/js/core.js')}}"></script>
+    <!-- <script src="{{ asset('assets/vendors/js/core.js')}}"></script> -->
+    <script src="{{ asset('js/app.js')}}"></script>
     <script src="{{ asset('assets/vendors/js/vendor.addons.js')}}"></script>
     <script src="{{ asset('assets/vendors/pace/pace.min.js')}}"></script>
     <script src="{{ asset('assets/vendors/chartjs/Chart.min.js')}}"></script>

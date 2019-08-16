@@ -75,7 +75,7 @@
                     this.modalType = 'success',
                     this.modalMessage = response.message;
                     this.modalTitle = 'Successful!';
-                    this.modalHref = response.redirectsTo; 
+                    // this.modalHref = response.redirectsTo; 
                     this.processing = false;
                     
                 } catch(e) {

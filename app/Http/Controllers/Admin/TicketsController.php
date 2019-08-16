@@ -36,14 +36,18 @@ class TicketsController extends Controller
 
     public function show(Ticket $ticket) {
         $conversations = $ticket->conversations()->latest()->paginate(10);
+        $assignmentLog = $ticket->allAssignedTo()->latest()->get();
 
-        return view('admin.tickets.show', compact('ticket', 'conversations'));
+        return view('admin.tickets.show', compact('ticket', 'conversations', 'assignmentLog'));
     }
 
 
     
     public function reassign(Request $request, Ticket $ticket) {
-    
+
+        if(!$request->staff_id) 
+            return response(['status' => false, 'errors' => 'Please specify a staff to re-assign ticket to!'], 422);
+
         $ticket->update(['assigned_to' => $request->staff_id]);
         $ticket->allAssignedTo()->create([
             'user_id' => $request->staff_id

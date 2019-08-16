@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class TicketConversation extends Model
 {
+    use ModelTrait;
 
     protected $fillable = ['message', 'sender_id', 'receiver_id', 'ticket_id'];
 

@@ -28,7 +28,7 @@
                         </select>       
                         <p class="invalid-feedback" v-show="errors.user_id">{{errors.user_id && errors.user_id[0]}}</p>
             </div>
-            <button type="submit" class="btn btn-sm btn-primary" :disabled="processing">
+            <button type="submit" class="btn btn-sm btn-primary" :disabled="processing || selectedStaff == ''">
                 <div class="spinner-grow spinner-grow-md mr-1 animate-this" v-show="processing" role="status"><span class="sr-only">Loading...</span></div> 
                     Reassign Ticket</button>
           </form>
