@@ -37,14 +37,19 @@ class TicketsController extends Controller
     /**
      * Returns all users's created tickets or tickets assigned to them (if request()->assigned_to_me is set)
      */
-    public function list() {
-        $assignedToMe = request()->has('assigned_to_me')? true : false;
+    public function list(Request $request) {
+        $assignedToMe = $request->has('assigned_to_me')? true : false;
+        $statuses = $this->status->get();
 
         $tickets = $assignedToMe ? $this->user->assignedTickets() : $this->user->tickets();
-        $tickets = request()->has('pending_approval') ? $tickets->where('is_approved', 0) : $tickets;
+
+        if($request->has('sort')) {
+            $tickets = $this->ticket->sortData($tickets, $request);
+        }
+
         $tickets = $tickets->latest()->paginate(15);
 
-        return view('tickets.list', compact('assignedToMe', 'tickets'));
+        return view('tickets.list', compact('assignedToMe', 'tickets', 'statuses'));
     }
 
     public function create() {
@@ -61,7 +66,7 @@ class TicketsController extends Controller
             $this->approveTicket($ticket);
         }
 
-        if($request->has('solved') && $assignedToMe) {
+        if($request->has('solved') && $isOwnedByMe) {
             $this->markAsSolved($ticket);
         }
 

@@ -21,10 +21,16 @@
                     <tr>
                         <td>{{ $count }}</td>
                         <td><a href="{{ route('tickets.show', ['ticket' => $ticket->ticket_id]) }}">{{ $ticket->ticket_id }}</a></td>
-                        <td><a href="{{ route('tickets.show', ['ticket' => $ticket->ticket_id]) }}"><strong>{{ $ticket->title }}</strong></a></td>
+                        <td><a href="{{ route('tickets.show', ['ticket' => $ticket->ticket_id]) }}"><strong>{{ $ticket->title }}</strong></a>
+                            @if(!$ticket->is_approved)
+                                <span><span class="status-indicator rounded-indicator small bg-danger"></span><small>Pending approval</small></span>                    
+                            @endif
+                        </td>
                         <td>{{ $ticket->unit->name }}</td>
                         <td>{{ $ticket->created_at->diffForHumans() }}</td>
-                        <td>{!! $ticket->statusBadge() !!}</td>
+                        <td>
+                            {!! $ticket->statusBadge() !!}
+                        </td>
                     </tr>
                 @endforeach
                 @endif

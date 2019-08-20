@@ -8,14 +8,12 @@
               <div class="split-header">
                   <p class="card-title ml-n1">All {{ request()->has('pending_approval') ? 'Pending' : ''   }} tickets</p>
 
-                  @if(request()->has('pending_approval'))
-                    <a class="btn btn-primary btn-xs text-white" href="{{ route('tickets.list') }}">View All Tickets</a>
-                  @else
-                    <a class="btn btn-primary btn-xs text-white" href="?pending_approval">View Unapproved Tickets</a>
-                  @endif
+                  @include('tickets.tickets_filter_template')
               </div>
           </div>
           @include('tickets.tickets_list_template')
       </div>
     </div>
 @endsection
+
+@include('tickets.tickets_scripts_template')

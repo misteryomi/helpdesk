@@ -144,4 +144,44 @@ class Ticket extends Model
     }
     
 
+    public function sortData($tickets, $request) {
+
+            //Sort by latest or oldest
+        if($request->has('by')) {
+            $tickets = $request->by == "Oldest" ? $tickets->oldest() : $tickets->latest();            
+        }
+
+        if($request->has('status')) {
+            $status = $request->status;
+
+            switch ($status) {
+                case 'All':
+                    $tickets = $tickets;
+                    break;
+                case 'Approved':
+                    $tickets = $tickets->where('is_approved', 1);
+                    break;
+                case 'Unapproved':
+                    $tickets = $tickets->where('is_approved', 0);
+                    break;
+                
+                default:
+                    $tickets = $tickets->whereHas('status', function($query) use ($status) {
+                                    $query->where('name', strtolower($status));
+                                });
+                    break;
+            }
+        }
+        
+        if($request->has('from')) {
+            $tickets = $tickets->whereDate('created_at', '>=', $request->from);            
+        }
+
+        if($request->has('to')) {
+            $tickets = $tickets->whereDate('created_at', '<=', $request->to);            
+        }
+
+        return $tickets;
+    }
+
 }

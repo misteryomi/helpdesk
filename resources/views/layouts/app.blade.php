@@ -18,6 +18,7 @@
     <link rel="stylesheet" href="{{ asset('assets/css/shared/style.css')}}">
     <!-- endinject -->
     <link rel="shortcut icon" href="{{ asset('assets/images/logo.png')}}" />
+    @yield('styles')
 
   </head>
   <body class="header-fixed docs-body">

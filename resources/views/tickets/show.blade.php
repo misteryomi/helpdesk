@@ -13,17 +13,14 @@
 
         @if($ticket->is_assigned)
         <div class="mb-4 text-right">
-            @if($isOwnedByMe && !$ticket->is_approved)
-            <a class="btn btn-danger text-white" href="?approve_ticket">Approve Ticket</a>
-            @endif
 
             <a class="btn btn-irs goto text-white" href="#reply">Reply Ticket</a>
 
-            @if($assignedToMe && $ticket->status->name !== 'Solved')
-                <button type="button" class="btn btn-danger dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Mark ticket as:</button>
-                <div class="dropdown-menu" x-placement="top-start">
-                    <a class="dropdown-item" href="?solved">Solved</a> 
-                </div>
+            @if($isOwnedByMe && !$ticket->is_approved)
+             <a class="btn btn-danger text-white" href="?approve_ticket">Approve Ticket</a>
+            @endif
+            @if($isOwnedByMe && $ticket->status->name !== 'Solved')
+             <a class="btn btn-danger text-white" href="?approve_ticket">Mark as Solved</a>
             @endif
             
         </div>
