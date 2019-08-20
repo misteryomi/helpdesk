@@ -20,10 +20,12 @@ Route::get('/', 'TicketsController@index')->name('tickets.summary');
 Route::get('tickets', 'TicketsController@list')->name('tickets.list');
 Route::get('ticket/new', 'TicketsController@create')->name('tickets.new');
 Route::get('ticket/{ticket}', 'TicketsController@show')->name('tickets.show');
+Route::get('ticket/{ticket}/approve', 'TicketsController@approveTicket')->name('tickets.approve');
 
 
 Route::prefix('api/v1')->name('api.')->group(function() {
     Route::get('departments', 'DepartmentsController')->name('departments.list');   
+    Route::get('users', 'UsersController')->name('users.list');   
 
     Route::prefix('tickets')->name('tickets.')->group(function() {
         Route::get('tickets/{count?}', 'TicketsController@apiList')->name('list');

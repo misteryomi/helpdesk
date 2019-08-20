@@ -89,6 +89,24 @@ class Ticket extends Model
         return Carbon::now()->format('dmY').sprintf("%04s", $currentTicketTodayCount); //If 0, generates 0000
     }
 
+    public function assignTicket($user_id) {
+        $this->allAssignedTo()->create(['user_id' => $user_id]);
+        $this->update([
+            'is_assigned' => true,
+            'assigned_to' => $user_id,                
+        ]);
+    }
+
+
+    //Retrieve assignable/available Staff and create an `assigned` record for specified ticket
+    public function assignTicketToAvailableStaff() {
+        $assignableStaff = $this->unit->getAssignableStaff();
+
+        if($assignableStaff) {
+            $this->assignTicket($assignableStaff->id);
+        }
+     } 
+
     
     /**
      * Get tickets that have the pending status and has been created 30 mins ago
@@ -104,8 +122,26 @@ class Ticket extends Model
         return $tickets;
     }
 
+    function displayApprovedBadge() {
+        return $this->is_on_behalf ? $this->approvedBadge() : '';
+    }
+
     public function statusBadge() {
         return "<label class='badge badge-{$this->status->css_class}'> &bullet; {$this->status->name}</label>";
     }
+
+    public function approvedBadge() {
+
+        if($this->is_approved) {
+            $css_class = 'success';
+            $text = 'Approved';
+        } else {
+            $css_class = 'danger';
+            $text = 'Unapproved';
+        }
+        
+        return "<label class='badge badge-{$css_class}'> &bullet; {$text}</label>";
+    }
+    
 
 }

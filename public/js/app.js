@@ -1927,18 +1927,35 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
-  props: ['dept_api_route', 'submit_api_route'],
+  props: ['dept_api_route', 'submit_api_route', 'users_api_route'],
   data: function data() {
     return {
       departments: [],
       categories: [],
       units: [],
       errors: [],
+      users: [],
       selectedDepartment: '',
       selectedUnit: '',
       selectedCategory: '',
       selectedPriority: 'Low',
+      selectedUser: '',
       title: '',
       message: '',
       displayModal: true,
@@ -1946,7 +1963,8 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       modalType: '',
       modalTitle: '',
       modalHref: '',
-      processing: false
+      processing: false,
+      isOnBehalf: false
     };
   },
   watch: {
@@ -2003,14 +2021,53 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
       return fetchDepartments;
     }(),
-    onSubmitTicket: function () {
-      var _onSubmitTicket = _asyncToGenerator(
+    fetchUsers: function () {
+      var _fetchUsers = _asyncToGenerator(
       /*#__PURE__*/
-      _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee2(e) {
-        var data, response;
+      _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee2() {
+        var response, data;
         return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee2$(_context2) {
           while (1) {
             switch (_context2.prev = _context2.next) {
+              case 0:
+                _context2.prev = 0;
+                _context2.next = 3;
+                return axios.get(this.users_api_route);
+
+              case 3:
+                response = _context2.sent;
+                data = response.data.data;
+                this.users = data;
+                _context2.next = 11;
+                break;
+
+              case 8:
+                _context2.prev = 8;
+                _context2.t0 = _context2["catch"](0);
+                console.log('error', _context2.t0);
+
+              case 11:
+              case "end":
+                return _context2.stop();
+            }
+          }
+        }, _callee2, this, [[0, 8]]);
+      }));
+
+      function fetchUsers() {
+        return _fetchUsers.apply(this, arguments);
+      }
+
+      return fetchUsers;
+    }(),
+    onSubmitTicket: function () {
+      var _onSubmitTicket = _asyncToGenerator(
+      /*#__PURE__*/
+      _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee3(e) {
+        var data, response;
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee3$(_context3) {
+          while (1) {
+            switch (_context3.prev = _context3.next) {
               case 0:
                 e.preventDefault();
                 this.processing = true;
@@ -2022,36 +2079,42 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                   priority: this.selectedPriority,
                   message: this.message
                 };
-                _context2.prev = 3;
-                _context2.next = 6;
+
+                if (this.selectedUser != '' && this.isOnBehalf) {
+                  data.is_on_behalf = true;
+                  data.selected_user = this.selectedUser;
+                }
+
+                _context3.prev = 4;
+                _context3.next = 7;
                 return axios.post(this.submit_api_route, data);
 
-              case 6:
-                response = _context2.sent;
+              case 7:
+                response = _context3.sent;
                 response = response.data;
                 $('#irsModal').modal('show');
                 this.modalType = 'success', this.modalMessage = response.message;
                 this.modalTitle = 'Successful!';
                 this.modalHref = response.redirectsTo;
                 this.processing = false;
-                _context2.next = 18;
+                _context3.next = 19;
                 break;
 
-              case 15:
-                _context2.prev = 15;
-                _context2.t0 = _context2["catch"](3);
+              case 16:
+                _context3.prev = 16;
+                _context3.t0 = _context3["catch"](4);
 
-                if (_context2.t0.response.status == 422) {
-                  this.errors = _context2.t0.response.data.errors;
+                if (_context3.t0.response.status == 422) {
+                  this.errors = _context3.t0.response.data.errors;
                   this.processing = false; //                   console.log(e.response.data.errors);    
                 }
 
-              case 18:
+              case 19:
               case "end":
-                return _context2.stop();
+                return _context3.stop();
             }
           }
-        }, _callee2, this, [[3, 15]]);
+        }, _callee3, this, [[4, 16]]);
       }));
 
       function onSubmitTicket(_x) {
@@ -2063,6 +2126,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
   },
   mounted: function mounted() {
     this.fetchDepartments();
+    this.fetchUsers();
   }
 });
 
@@ -38873,6 +38937,123 @@ var render = function() {
                   [_vm._v(_vm._s(_vm.errors.message && _vm.errors.message[0]))]
                 )
               ]),
+              _vm._v(" "),
+              _c("div", { staticClass: "form-group" }, [
+                _c("label", { attrs: { for: "inputPassword1" } }, [
+                  _vm._v(
+                    "Are you creating this ticket on behalf of someone else?"
+                  )
+                ]),
+                _c("br"),
+                _vm._v(" "),
+                _c("input", {
+                  directives: [
+                    {
+                      name: "model",
+                      rawName: "v-model",
+                      value: _vm.isOnBehalf,
+                      expression: "isOnBehalf"
+                    }
+                  ],
+                  attrs: { type: "radio", value: "false" },
+                  domProps: { checked: _vm._q(_vm.isOnBehalf, "false") },
+                  on: {
+                    change: function($event) {
+                      _vm.isOnBehalf = "false"
+                    }
+                  }
+                }),
+                _vm._v("No\n            "),
+                _c("input", {
+                  directives: [
+                    {
+                      name: "model",
+                      rawName: "v-model",
+                      value: _vm.isOnBehalf,
+                      expression: "isOnBehalf"
+                    }
+                  ],
+                  attrs: { type: "radio", value: "true" },
+                  domProps: { checked: _vm._q(_vm.isOnBehalf, "true") },
+                  on: {
+                    change: function($event) {
+                      _vm.isOnBehalf = "true"
+                    }
+                  }
+                }),
+                _vm._v("Yes\n        ")
+              ]),
+              _vm._v(" "),
+              _c(
+                "div",
+                {
+                  directives: [
+                    {
+                      name: "show",
+                      rawName: "v-show",
+                      value: _vm.isOnBehalf,
+                      expression: "isOnBehalf"
+                    }
+                  ],
+                  staticClass: "form-group"
+                },
+                [
+                  _c("label", { attrs: { for: "category" } }, [
+                    _vm._v("Select User")
+                  ]),
+                  _vm._v(" "),
+                  _c(
+                    "select",
+                    {
+                      directives: [
+                        {
+                          name: "model",
+                          rawName: "v-model",
+                          value: _vm.selectedUser,
+                          expression: "selectedUser"
+                        }
+                      ],
+                      staticClass: "form-control",
+                      attrs: { name: "user" },
+                      on: {
+                        change: function($event) {
+                          var $$selectedVal = Array.prototype.filter
+                            .call($event.target.options, function(o) {
+                              return o.selected
+                            })
+                            .map(function(o) {
+                              var val = "_value" in o ? o._value : o.value
+                              return val
+                            })
+                          _vm.selectedUser = $event.target.multiple
+                            ? $$selectedVal
+                            : $$selectedVal[0]
+                        }
+                      }
+                    },
+                    [
+                      _c("option", { attrs: { value: "" } }, [
+                        _vm._v("Select User")
+                      ]),
+                      _vm._v(" "),
+                      _vm._l(_vm.users, function(user, index) {
+                        return _c(
+                          "option",
+                          { key: index, domProps: { value: user.id } },
+                          [_vm._v(_vm._s(user.name))]
+                        )
+                      })
+                    ],
+                    2
+                  ),
+                  _vm._v(" "),
+                  _c("p", { staticClass: "invalid-feedback" }, [
+                    _vm._v(
+                      "Please note: The selected user would have to approve the ticket before it can be active."
+                    )
+                  ])
+                ]
+              ),
               _vm._v(" "),
               _c(
                 "button",

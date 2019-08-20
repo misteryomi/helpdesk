@@ -12,7 +12,7 @@
                 <div class="grid">
                     <div class="grid-body">
                         <div class="split-header">
-                        <p class="card-title">Issue:</p>
+                           <p class="card-title">Issue:</p>
                         </div>
                         <strong class="text-dark">{{ $ticket->user->name }}</strong><br/>
                         <small class="text-muted mb-1">{{ $ticket->formated_date }}</small>
@@ -69,6 +69,7 @@
                   <div class="grid-body">
                     <div class="split-header">
                       <p class="card-title">Assignment Log</p>
+                      dkdkd
                     </div>
                     <div class="vertical-timeline-wrapper">
                       <div class="timeline-vertical dashboard-timeline">

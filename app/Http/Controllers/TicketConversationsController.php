@@ -30,7 +30,14 @@ class TicketConversationsController extends Controller
         if(!$ticket->is_assigned) {
             return response([
                 'status' => false, 
-                'message' => "Sorry, you cannot respond to this ticket yet", 
+                'message' => "Sorry, you cannot respond to an unassigned ticket", 
+                ], 403);    
+        }
+
+        if(!$ticket->is_approved) {
+            return response([
+                'status' => false, 
+                'message' => "Sorry, you cannot respond to an unapproved ticket", 
                 ], 403);    
         }
 

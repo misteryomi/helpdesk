@@ -5,12 +5,18 @@
         <h5>Ticket #{{ $ticket->ticket_id }}</h5>
         <h1 class="mb-3">{{ $ticket->title }}</h1>
         <small class="text-muted mb-3">{{ $ticket->created_at->isoFormat('MMMM Do YYYY, h:mm:ss a') }}</small><br/>
+
         {!! $ticket->statusBadge() !!}
+        {!! $ticket->displayApprovedBadge() !!}
 
         @include('partials.alert')
 
         @if($ticket->is_assigned)
         <div class="mb-4 text-right">
+            @if($isOwnedByMe && !$ticket->is_approved)
+            <a class="btn btn-danger text-white" href="?approve_ticket">Approve Ticket</a>
+            @endif
+
             <a class="btn btn-irs goto text-white" href="#reply">Reply Ticket</a>
 
             @if($assignedToMe && $ticket->status->name !== 'Solved')
@@ -19,8 +25,6 @@
                     <a class="dropdown-item" href="?solved">Solved</a> 
                 </div>
             @endif
-
-
             
         </div>
         @endif

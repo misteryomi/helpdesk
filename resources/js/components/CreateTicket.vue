@@ -40,7 +40,7 @@
                         <option v-for="(category, index) in categories" :key="index" :value="category.id">{{ category.name }}</option>
                     </select>       
                     <p class="invalid-feedback" v-show="errors.category_id">{{errors.category_id && errors.category_id[0]}}</p>
-                </div>
+            </div>
             <div class="form-group">
                 <label for="title">Title</label>
                 <input type="text" class="form-control" placeholder="Ticket title" v-model="title">
@@ -50,6 +50,21 @@
                 <label for="inputPassword1">Message</label>
                 <textarea rows="10" placeholder="Enter your message" name="message" class="form-control" v-model="message"></textarea>
                 <p class="invalid-feedback" v-show="errors.message">{{errors.message && errors.message[0]}}</p>
+            </div>
+
+            <div class="form-group">
+                <label for="inputPassword1">Are you creating this ticket on behalf of someone else?</label><br/>
+                <input type="radio" value="false" v-model="isOnBehalf" />No
+                <input type="radio" value="true" v-model="isOnBehalf" />Yes
+            </div>
+
+            <div class="form-group" v-show="isOnBehalf">
+                <label for="category">Select User</label>
+                    <select class="form-control" name="user" v-model="selectedUser">
+                        <option value="">Select User</option>
+                        <option v-for="(user, index) in users" :key="index" :value="user.id">{{ user.name }}</option>
+                    </select>       
+                    <p class="invalid-feedback">Please note: The selected user would have to approve the ticket before it can be active.</p>
             </div>
             <button type="submit" class="btn btn-sm btn-primary" :disabled="processing">
                 <div class="spinner-grow spinner-grow-md mr-1 animate-this" v-show="processing" role="status"><span class="sr-only">Loading...</span></div> 
@@ -69,17 +84,19 @@
 
 <script>
     export default {
-        props: ['dept_api_route', 'submit_api_route'],
+        props: ['dept_api_route', 'submit_api_route', 'users_api_route'],
         data() {
             return {
                 departments: [],
                 categories: [],
                 units: [],
                 errors: [],
+                users: [],
                 selectedDepartment: '',
                 selectedUnit: '',
                 selectedCategory: '',
                 selectedPriority: 'Low',
+                selectedUser: '',
                 title: '',
                 message: '',
                 displayModal: true,
@@ -88,6 +105,7 @@
                 modalTitle: '',
                 modalHref: '',
                 processing: false,
+                isOnBehalf: false,
             }
         },
         watch: {
@@ -107,7 +125,16 @@
                     let data = response.data.data;
                     this.departments = data;
                 } catch(e) {
-                    console.log('error',e);
+                    console.log('error', e);
+                }
+            },
+            async fetchUsers() {
+                try {
+                    let response = await axios.get(this.users_api_route);
+                    let data = response.data.data;
+                    this.users = data;
+                } catch(e) {
+                    console.log('error', e);
                 }
             },
             async onSubmitTicket(e) {
@@ -122,6 +149,11 @@
                     category_id: this.selectedCategory,
                     priority: this.selectedPriority,
                     message: this.message,
+                }
+
+                if(this.selectedUser != '' && this.isOnBehalf) {
+                    data.is_on_behalf = true;
+                    data.selected_user = this.selectedUser;
                 }
 
                 try {
@@ -147,6 +179,7 @@
         },
         mounted() {
             this.fetchDepartments();
+            this.fetchUsers();
         }
     }
 </script>
