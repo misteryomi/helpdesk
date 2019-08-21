@@ -6,6 +6,8 @@
                     <th>#</th>
                     <th>Ticket ID</th>
                     <th>Title</th>
+                    <th>Created By</th>
+                    <th>Assigned To</th>
                     <th>Unit</th>
                     <th>Created at</th>
                     <th>Status</th>
@@ -26,6 +28,8 @@
                                 <span><span class="status-indicator rounded-indicator small bg-danger"></span><small>Pending approval</small></span>                    
                             @endif
                         </td>
+                        <td>{{ $ticket->user->name }}</td>
+                        <td>{{ $ticket->assignedTo ? $ticket->assignedTo->name : '-'}}</td>
                         <td>{{ $ticket->unit->name }}</td>
                         <td>{{ $ticket->created_at->diffForHumans() }}</td>
                         <td>

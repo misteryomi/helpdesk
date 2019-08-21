@@ -6,7 +6,7 @@
       <div class="grid">
           <div class="grid-body py-3">
               <div class="split-header">
-                  <p class="card-title ml-n1">All {{ request()->has('pending_approval') ? 'Pending' : ''   }} tickets</p>
+                  <p class="card-title ml-n1">All tickets</p>
 
                   @include('tickets.tickets_filter_template')
               </div>

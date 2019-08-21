@@ -1,7 +1,7 @@
     <form action="" method="get">        
             <div class="form-group row">
                 <div class="col-md-2">
-                    <input type="hidden" name="sort" />
+                    <input type="hidden" name="sort" value="true" />
                     <select name="status" id="" class="form-control">
                         <option>All</option>
                         @foreach($statuses as $status)

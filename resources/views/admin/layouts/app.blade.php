@@ -3,7 +3,8 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <title>Label - Premium Responsive Bootstrap 4 Admin & Dashboard Template</title>
+    <meta name="csrf-token" content="{{ csrf_token() }}">
+    <title>IRS Helpdesk Admin</title>
     <!-- plugins:css -->
     <link rel="stylesheet" href="{{ asset('assets/vendors/iconfonts/mdi/css/materialdesignicons.css')}}">
     <!-- endinject -->
@@ -16,7 +17,7 @@
     <link rel="stylesheet" href="{{ asset('assets/css/demo_1/style.css')}}">
     <!-- Layout style -->
     <link rel="shortcut icon" href="{{ asset('asssets/images/favicon.ico')}}" />
-    <script src="{{ asset('js/app.js')}}" defer></script>
+    @yield('styles')
   </head>
   <body class="header-fixed">
     <!-- partial:partials/_header.html -->
@@ -171,7 +172,7 @@
       <div class="sidebar">
         <div class="user-profile">
           <div class="display-avatar animated-avatar">
-            <img class="profile-img img-lg rounded-circle" src="{{ asset('assets/images/profile/male/image_1.png')}}" alt="profile image">
+            <!-- <img class="profile-img img-lg rounded-circle" src="{{ asset('asets/images/profile/male/image_1.png')}}" alt=""> -->
           </div>
           <div class="info-wrapper">
             <p class="user-name">Administrator</p>
@@ -277,6 +278,7 @@
     <!--page body ends -->
     <!-- SCRIPT LOADING START FORM HERE /////////////-->
     <!-- plugins:js -->
+    <script src="{{ asset('js/app.js')}}"></script>
     <script src="{{ asset('assets/vendors/js/core.js')}}"></script>
     <!-- endinject -->
     <!-- Vendor Js For This Page Ends-->
@@ -287,6 +289,7 @@
     <!-- build:js -->
     <script src="{{ asset('assets/js/template.js')}}"></script>
     <script src="{{ asset('assets/js/dashboard.js')}}"></script>
+    @yield('scripts')
     <!-- endbuild -->
   </body>
 </html>

@@ -4,10 +4,12 @@ namespace App\Http\Controllers\Admin;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Exports\TicketsExport;
 
 use App\User;
 use App\Ticket;
 use App\Status;
+use Excel;
 
 class TicketsController extends Controller
 {
@@ -29,9 +31,20 @@ class TicketsController extends Controller
             return redirect()->route('admin.tickets.show', ['ticket_id' => $request->ticket_id]);            
         }
 
-        $tickets = $this->ticket->latest()->paginate(15);
+        $tickets = $this->ticket->latest();
 
-        return view('admin.tickets.list', compact('tickets'));
+        if($request->has('sort')) {
+            $tickets = $this->ticket->sortData($tickets, $request);
+        }
+
+        if($request->has('export')) {
+            return $this->export($tickets->get());
+        }
+
+        $statuses = $this->status->get();
+        $tickets = $tickets->paginate(15);
+
+        return view('admin.tickets.list', compact('tickets', 'statuses'));
     }    
 
     public function show(Ticket $ticket) {
@@ -56,5 +69,8 @@ class TicketsController extends Controller
         return response(['status' => true, 'message' => 'Ticket status updated successfully!']);
     }    
 
-
+    public function export($tickets) 
+    {
+        return Excel::download(new TicketsExport($tickets), 'invoices.xlsx');
+    }
 }

@@ -6,6 +6,8 @@
                     <th>#</th>
                     <th>Ticket ID</th>
                     <th>Title</th>
+                    <th>Created By</th>
+                    <th>Assigned To</th>
                     <th>Unit</th>
                     <th>Created at</th>
                     <th>Status</th>
@@ -22,6 +24,8 @@
                         <td>{{ $count }}</td>
                         <td><a href="{{ route('admin.tickets.show', ['ticket' => $ticket->ticket_id]) }}">{{ $ticket->ticket_id }}</a></td>
                         <td><a href="{{ route('admin.tickets.show', ['ticket' => $ticket->ticket_id]) }}"><strong>{{ $ticket->title }}</strong></a></td>
+                        <td>{{ $ticket->user->name }}</td>
+                        <td>{{ $ticket->assignedTo ? $ticket->assignedTo->name : '-' }}</td>
                         <td>{{ $ticket->unit->name }}</td>
                         <td>{{ $ticket->created_at->diffForHumans() }}</td>
                         <td>{!! $ticket->statusBadge() !!}</td>

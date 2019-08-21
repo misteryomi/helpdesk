@@ -14,6 +14,7 @@ Route::get('/admin', 'Admin\DashboardController@index')->name('admin.dashboard')
 Route::get('/admin/tickets', 'Admin\TicketsController@list')->name('admin.tickets.list');
 Route::get('/admin/tickets/{ticket}', 'Admin\TicketsController@show')->name('admin.tickets.show');
 Route::post('/admin/{ticket}/reassign', 'Admin\TicketsController@reassign')->name('admin.tickets.reassign');
+Route::get('/admin/export', 'Admin\TicketsController@export')->name('admin.tickets.export');
 
 
 Route::get('/', 'TicketsController@index')->name('tickets.summary');
